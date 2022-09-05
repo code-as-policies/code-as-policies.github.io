@@ -20,8 +20,6 @@ $(document).ready(function() {
 //     // var vid = $('#v0')[0]; // jquery option
 
     
-    
-
 // // Use requestAnimationFrame for smooth playback
 // function scrollPlay(){  
 //   var frameNumber  = window.pageYOffset/playbackConst;
@@ -34,7 +32,7 @@ $(document).ready(function() {
 // vid.addEventListener('loadedmetadata', function() {
 //   setHeight.style.height = Math.floor(vid.duration) * playbackConst + "px";
 // });
-    
+
     
 //     window.requestAnimationFrame(scrollPlay);
 });
