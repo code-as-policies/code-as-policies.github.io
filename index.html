@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Code as Policies: Language Model Programs for Embodied Control</title>
+
+    <meta name="description" content="Code as Policies: Language Model Programs for Embodied Control">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <base href="/"> -->
+
+        <!--FACEBOOK-->
+    <meta property="og:image" content="https://code-as-policies.github.io/img/share_image.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="682">
+    <meta property="og:image:height" content="682">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://code-as-policies.github.io/"/>
+    <meta property="og:title" content="Code as Policies" />
+    <meta property="og:description" content="Project page for Code as Policies: Language Model Programs for Embodied Control." />
+
+        <!--TWITTER-->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Code as Policies" />
+    <meta name="twitter:description" content="Project page for Code as Policies: Language Model Programs for Embodied Control." />
+    <meta name="twitter:image" content="https://code-as-policies.github.io/img/share_image.png" />
+
+<!--     <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+  <!-- <link rel="icon" type="image/png" href="img/seal_icon.png"> -->
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    
+    <script src="js/app.js"></script>
+	
+    <style>
+        .nav-pills {
+          position: relative;
+          display: inline;
+        }
+        .imtip {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <b><font size="+6">Code as Policies</font></b>: </br> Language Model Programs for Embodied Control </br> 
+                <!--<small>
+                    ICRA 2023
+                </small>-->
+            </h2>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <ul class="list-inline">
+                <br>
+                <li>Jacky Liang</li>
+                <li>Wenlong Huang</li>
+                <li>Fei Xia</li>
+                <li>Peng Xu</li>
+                <li>Karol Hausman</li>
+                <li>Brian Ichter</li>
+                <li>Pete Florence</li>
+                <li>Andy Zeng</li>
+                <br>
+                <br>
+                    <a href="http://g.co/robotics">
+                        <image src="img/robotics-at-google.png" height="40px"> 
+                        Robotics at Google                        
+                    </a>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <ul class="nav nav-pills nav-justified">
+                        <li>
+                            <!-- <a href="assets/palm_saycan.pdf"> -->
+                            <image src="img/paper_small.png" height="60px">
+                            <!-- <image src="img/new.png" height="20px" class="imtip"> -->
+                                <h4><strong>Paper Coming Soon</strong></h4>
+                            <!-- </a> -->
+                        </li>
+
+                        <!-- <li>
+                            <a href="https://youtu.be/ysFav0b472w">
+                            <image src="img/youtube_icon.png" height="60px">
+                                <h4><strong>Video</strong></h4>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://ai.googleblog.com/2022/08/towards-helpful-robots-grounding.html">
+                            <image src="img/google-ai-blog-small.png" height="60px">
+                                <image src="img/new.png" height="20px" class="imtip">
+                                <h4><strong>Blogpost</strong></h4>
+                            </a>
+                        </li>
+                         <li>
+                            <a href="https://github.com/google-research/google-research/tree/master/saycan">
+                            <image src="img/github.png" height="60px">
+                                <image src="img/new.png" height="20px" class="imtip">
+                                <h4><strong>Code</strong></h4>
+                            </a>
+                            <li>
+                            <a href="https://sites.research.google/palm-saycan">
+                            <image src="img/demo.png" height="60px">
+                                <image src="img/new.png" height="20px" class="imtip">
+                                <h4><strong>Demo</strong></h4>
+                            </a>
+                        </li>  -->
+                        </li> 
+                    </ul>
+                </div>
+        </div>
+
+         <!-- <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+           
+                <h3>
+                    What's New
+                </h3>
+                <p class="text-justify">
+
+                  
+                <ul>
+                    <li> <font color="#5a00b4">[8/16/2022]</font> We integrated SayCan with <a href="https://ai.googleblog.com/2022/04/pathways-language-model-palm-scaling-to.html">Pathways Language Model (PaLM)</a>, and updated the results. We also added <a href="#new-capability"> new capabilities</a> including drawer manipulation, chain of thought prompting and multilingual instructions. You can see all the new results in the updated <a href="assets/palm_saycan.pdf">paper</a>.</li>
+                    <li> [4/4/2022] Initial release of SayCan. </li>
+                </ul>
+
+            </div>
+        </div> -->
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <!-- <p style="text-align:center;">
+        	    	<video id="v0" width="100%" playsinline autoplay muted loop controls>
+                       <source src="img/demo_sequence_compressed.mp4" type="video/mp4">
+                   </video>
+                </p> -->
+                <h3>
+                    Abstract
+                </h3>
+                <p class="text-justify">
+                    Can robots leverage large language models (LLMs) beyond high-level planning?
+                    In this work, we find that code-writing LLMs (e.g. Codex) are surprisingly proficient at writing robot code to assemble low-level policies.
+                    Given natural language commands as comments, LLMs can be prompted to generate functions that process perception outputs and parameterize control primitive APIs.
+                    By composing API calls with classic logic structures – and even using prior knowledge of third-party libraries such as NumPy or Shapely to perform complex arithmetic operations – code-writing LLMs exhibit spatial-geometric reasoning in rather simple ways that (i) generalize to new instructions and feedback loops, and (ii) can prescribe precise values (e.g. velocities) to ambiguous descriptions (``faster'') depending on context (\ie behavioral commonsense).
+                    This paper presents a robot-centric formalization of language-model programs (LMPs) that can represent reactive policies (e.g. impedance controllers), as well as waypoint-based policies (vision-based pick and place).
+                    Experiments show that (i) prompting LLMs to write code performs better spatial-geometric reasoning than Chain of Thought, (ii) generating code hierarchically enables writing more complex policies and sets the new state-of-the-art on standard code generation benchmarks, and (iii) larger models generate better LMPs. 
+                </p>
+                <!-- <p style="text-align:center;">
+        	    	<video id="v0" width="100%" playsinline autoplay muted loop controls>
+                       <source src="img/palm_saycan_teaser_compressed.mp4" type="video/mp4">
+                   </video>
+                </p> -->
+                <p style="text-align:center;">
+                    <image src="img/share_image.png" width="100%">
+                </p>
+            </div>
+        </div>
+
+
+        <!-- <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Video
+                </h3>
+                <div class="text-center">
+                    <div style="position:relative;padding-top:56.25%;">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/ysFav0b472w" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+            	<br>
+                <h3>
+                    Approach
+                </h3>
+                <!-- <p class="text-justify">
+                    Imagine a robot operating in a kitchen that is capable of executing skills such as "pick up the coffee cup" or "go to the sink".
+                    To get the robot to use these skills to perform a complex task (e.g. "I spilled my drink, can you help?"), the user could manually break it up into steps consisting of these atomic commands. 
+			        However,this would be exceedingly tedious. A language model can split the high-level instruction ("I spilled my drink, can you help?") into sub-tasks, but it cannot do that effectively unless it has the context of what the robot is capable of given the abilities, current state of the robot and its environment.
+                <br><br>
+                    When querying existing large language models, we see that a language model queried with "I spilled my drink, can you help?" may respond with "You could try using a vaccuum cleaner" or "I'm sorry, I didn't mean to spill it".
+                <p style="text-align:center;">
+        	        <image src="img/gpt3-cropped2.png" class="img-responsive">
+                </p>
+                    While these responses sound reasonable, they are not feasible to execute with the robot's capabilities in its current environment.  
+                <br><br>
+                    The main principle that we use to connect LLMs to physical tasks is to observe that, in addition of asking the LLM to simply interpret an instruction, we can use it to score the likelihood that an individual skill makes progress towards completing the high-level instruction.
+                    Furthermore, if each skill has an accompanying affordance function that quantifies how likely it is to succeed from the current state (such as a learned value function), its value can be used to weight the skill's likelihood.
+                <p style="text-align:center;">
+        	        <image src="img/saycan-llm.gif" class="img-responsive">
+                </p>
+                <br><br>
+                    Once the skill is selected, we execute it on the robot, the process proceeds by iteratively selecting a task and appending it to the instruction.
+                    Practically, we structure the planning as a dialog between a user and a robot, in which a user provides the high level-instruction, e.g. "How would you bring me a coke can?" and the language model responds with an explicit sequence e.g. "I would: 1. Find a coke can, 2. Pick up the coke can, 3. Bring it to you, 4. Done".  
+                <p style="text-align:center;">
+        	        <image src="img/saycan.png" class="img-responsive">        	   
+                </p>
+                In summary, given a high-level instruction, SayCan combines probabilities from a language model (representing the probability that a skill is useful for the instruction) with the probabilities from a value function (representing the probability of successfully executing said skill) to select the skill to perform. This emits a skill that is both possible and useful. The process is repeated by appending the selected skill to robot response and querying the models again, until the output step is to terminate.                 -->
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Results
+                </h3>
+
+                <h4 id="results_tabletop_manipulation_blocks">
+                    Tabletop Manipulation: Blocks
+                </h4>
+
+                <h4 id="results_tabletop_manipulation_blocks_bowls">
+                    Tabletop Manipulation: Blocks and Bowls
+                </h4>
+
+                <h4 id="results_tabletop_manipulation_fbp">
+                    Tabletop Manipulation: Fruits, Bottles, and Plates
+                </h4>
+
+                <h4 id="results_tabletop_manipulation_whiteboard">
+                    Tabletop Manipulation: Whiteboard Drawing
+                </h4>
+
+                <h4 id="results_mobile_robot_navigation">
+                    Mobile Robot: Navigation
+                </h4>
+
+                <h4 id="results_mobile_robot_manipulation">
+                    Mobile Robot: Manipulation
+                </h4>
+                <!-- <p class="text-justify">
+                    We benchmarked the proposed algorithm Saycan in two scenes, an office kitchen and a mock office kitchen with 101 tasks specified by natural 
+                    langauge instructions. Below we show some highlights of the results.
+                </p>
+		
+                <p class="text-justify">
+                    We visualize the decision making process of SayCan. The blue bar indicates (normalized) LLM probability and the red bar 
+                    indicates (normalized) probability of 
+                    successful execution of selected skills. The combined score is in green bar, 
+                    and the algorithm choose the skill with highest combined score. This visualization
+                    highlights the interpretability of SayCan.
+                </p>
+		    
+                <p class="text-justify">
+                    Given the task "I spilled my coke, can you bring me something to clean it up?", SayCan successfully planned and executed the following 
+                    steps 1. Find a sponge 2. Pick up the sponge
+                    3. Bring it to you 4. Done. As shown below:
+                </p>
+                <p style="text-align:center;">
+                    <image src="img/qualitative_1.png"  class="img-responsive" height="600px">
+                </p>
+			
+        		<p class="text-justify">
+                    However, if we slightly tweak the task to "I spilled my coke, can you bring me a replacement", SayCan planned the following steps instead
+                    1. Find a coke can 2. Pick up the coke can
+                    3. Bring it to you 4. Done. This highlights that SayCan is able to leverage the large capacity of LLMs, 
+                    where their semantic knowledge about the world can be useful both for interpreting instructions
+                    and understanding how to execute them.
+                </p>
+			
+		        <p style="text-align:center;">
+                    <image src="img/qualitative_2.png"  class="img-responsive" height="600px">
+                </p>
+			  
+		        <p> 
+                    In the next example, SayCan leverages the ability of the affordances to "override" the language model; though the language model believes picking up the sponge is the right skill, the affordances are aware this isn't possible and instead "find a sponge" is chosen. This highlights the necessity of affordance grounding.
+                </p>
+		        <p style="text-align:center;">
+                    <image src="img/embodiment_example.png"  class="img-responsive" height="600px">
+                </p>
+			  
+                <p class="text-justify">
+		            The proposed approach achieves an overall plan success rate of 84% and execution success rate of 74% of 101 tasks,  <font color="#5a00b4"> which is 14% and 13% higher than our initial release</font>. For more details, please refer to 
+			        our paper.  We show that a robot’s performance can be improved simply by enhancing the underlying language model.
+                </p>
+                <p style="test-align:center;">
+                    <video id="v0" width="100%" playsinline autoplay muted loop>
+                        <source src="img/mosaic_16_demo_white_compat.mp4" type="video/mp4">
+                    </video>		
+                </p>
+                <p class="text-justify">
+                    The proposed method can scale to long horizon tasks involving multiple steps, for example, for the task "I spilled my coke on the table,
+                    how would you throw it away and bring me something to help clean", the robot successfully planned and execute 8 steps. The execution 
+                    and planning process are shown in the video below.
+                </p>
+		        <p style="test-align:center;">
+					<video id="v0" width="100%" playsinline muted loop controls>
+                       <source src="img/demo_sequence_compressed.mp4" type="video/mp4">
+                   </video>		
+                </p>
+		        <p class="text-justify">
+                    For the task "I just worked out, can you bring me a drink and a snack to recover?, the execution 
+			        and planning process are shown in the video below.
+        		</p>
+                <p style="test-align:center;">
+					<video id="v0" width="100%" playsinline muted loop controls>
+                       <source src="img/demo_sequence2_compressed.mp4" type="video/mp4">
+                   </video>		
+                </p>
+                <p class="text-justify">
+                    In the next example, we show SayCan is able to plan and execute a very long-horizon task involving 16 steps.
+                </p>
+                <p style="test-align:center;">
+					<video id="v0" width="100%" playsinline muted loop controls>
+                       <source src="img/demo_sequence3_compressed.mp4" type="video/mp4">
+                   </video>		
+                </p> -->
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Citation 
+                </h3> 
+                <a href="https://arxiv.org/abs/??">[arxiv version]</a>
+                <div class="form-group col-md-10 col-md-offset-1">
+                    <textarea id="bibtex" class="form-control" readonly>
+@inproceedings{codeaspolicies2022,
+    title={Code as Policis: Language Model Programs for Embodied Control},
+    author={Jacky Liang and Wenlong Huang and Fei Xia and Peng Xu and Karol Hausman and Brian Ichter and Pete Florence and Andy Zeng},
+    booktitle={arXiv preprint arXiv:??},
+    year={2022}
+}
+                    </textarea>
+                </div>
+            </div>
+        </div>
+
+         <div class="row">
+            <div id="open-source" class="col-md-8 col-md-offset-2">
+                <h3>
+                    Google Colabs
+                </h3>
+                <!-- Colab Links</a> 
+                <p style="text-align:center;">
+                    <img src="img/open_source_tabletop.png" class="img-responsive" height="600px">
+                </p> -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Acknowledgements
+                </h3>
+                <p class="text-justify">
+                    <!-- The authors would like to thank Fred Alcober, Yunfei Bai, Matt Bennice, Maarten Bosma, Justin Boyd, Bill Byrne, Kendra Byrne, Noah Constant, Pete Florence, Laura Graesser, Rico Jonschkowski, Daniel Kappler, Hugo Larochelle, Benjamin Lee, Adrian Li, Maysam Moussalem, Suraj Nair, Jane Park, Evan Rapoport, Krista Reymann, Jeff Seto, Dhruv Shah, Ian Storz, Razvan Surdulescu, Tom Small, Jason Wei, and Vincent Zhao for their help and support in various aspects of the project. -->
+                    <br><br>
+                    The website template was borrowed from <a href="http://jonbarron.info/">Jon Barron</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
