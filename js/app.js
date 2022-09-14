@@ -1,14 +1,22 @@
-
 $(document).ready(function() {
+    // bibtex
     var editor = CodeMirror.fromTextArea(document.getElementById("bibtex"), {
         lineNumbers: false,
         lineWrapping: true,
         readOnly:true
     });
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+
+    // demos
+    $('select').on('change', function() {
+        var sep_idx = this.value.indexOf('_');
+        var domain_name = this.value.substring(0, sep_idx);
+        var cmd_idx = parseInt(this.value.substring(sep_idx + 1));
+        console.log(domain_name);
+        console.log(cmd_idx);
     });
     
+
+
 
 // var frameNumber = 0, // start video at frame 0
 //     // lower numbers = faster playback
