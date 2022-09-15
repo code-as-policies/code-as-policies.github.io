@@ -158,12 +158,13 @@
                     Abstract
                 </h3>
                 <p class="text-justify">
-                    Can robots leverage large language models (LLMs) beyond high-level planning?
-                    In this work, we find that code-writing LLMs (e.g. Codex) are surprisingly proficient at writing robot code to assemble low-level policies.
-                    Given natural language commands as comments, LLMs can be prompted to generate functions that process perception outputs and parameterize control primitive APIs.
-                    By composing API calls with classic logic structures – and even using prior knowledge of third-party libraries such as NumPy or Shapely to perform complex arithmetic operations – code-writing LLMs exhibit spatial-geometric reasoning in rather simple ways that (i) generalize to new instructions and feedback loops, and (ii) can prescribe precise values (e.g. velocities) to ambiguous descriptions ("faster") depending on context (i.e behavioral commonsense).
-                    This paper presents a robot-centric formalization of language-model programs (LMPs) that can represent reactive policies (e.g. impedance controllers), as well as waypoint-based policies (vision-based pick and place).
-                    Experiments show that (i) prompting LLMs to write code performs better spatial-geometric reasoning than Chain of Thought, (ii) generating code hierarchically enables writing more complex policies and sets the new state-of-the-art on standard code generation benchmarks, and (iii) larger models generate better LMPs. 
+Large language models (LLMs) trained on codecompletion have been shown to be capable of synthesizing simple Python programs from docstrings [1]. 
+We find that these codewriting LLMs can be re-purposed to write robot policy code, given natural language commands. 
+Specifically, policy code can express functions or feedback loops that process perception outputs (e.g.,from object detectors [2], [3]) and parameterize control primitive APIs.
+When provided as input several example language commands (formatted as comments) followed by corresponding policy code (via few-shot prompting), LLMs can take in new commands and autonomously re-compose API calls to generate new policy code respectively. 
+By chaining classic logic structures and referencing third-party libraries (e.g., NumPy, Shapely) to perform arithmetic, LLMs used in this way can write robot policies that (i) exhibit spatial-geometric reasoning, (ii) generalize to new instructions, and (iii) prescribe precise values (e.g., velocities) to ambiguous descriptions (“faster”) depending on context (i.e., behavioral commonsense). 
+This paper presents code as policies: a robot-centric formalization of language model generated programs (LMPs) that can represent reactive policies (e.g., impedance controllers), as well as waypoint-based policies (vision-based pick and place, trajectory-based control), demonstrated across multiple real robot platforms. Central to our approach is prompting hierarchical code-gen (recursively defining undefined functions), which can write more complex code and also improves state-of-the-art to solve 39.8% of problems on the HumanEval [1] benchmark. 
+Code and videos are available at https://code-as-policies.github.io
                 </p>
                 <p style="text-align:center;">
                     <image src="img/share_image.png" width="100%">
@@ -1057,9 +1058,12 @@ if bbox_contains_pt(container_name=plate_name, obj_name='apple'):
                                 8) Draw a smaller pyramid a little bit to the left
                             </option>
                             <option value="draw_9">
-                                9) Draw circles around the blocks
+                                8) Erase the sun, the ground, and the pyramid
                             </option>
                             <option value="draw_10">
+                                9) Draw circles around the blocks
+                            </option>
+                            <option value="draw_11">
                                 10) Draw a square around the sweeter fruit
                             </option>
                         </select>
@@ -1194,6 +1198,24 @@ def interpolate_pts_along_exterior(exterior, n):
                         <div class="row" id="content_draw_6" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
+# draw the ground as a line at the bottom.
+say('ok - drawing the ground as a line at the bottom')
+ground_line_pts = parse_shape_pts('a horizontal line with length 20cm at the bottom')
+draw(ground_line_pts)
+
+# a horizontal line with length 20cm at the bottom.
+bottom_side = denormalize_xy([0.5, 0])
+start_pos = bottom_side + [-0.1, 0]
+end_pos = bottom_side + [0.1, 0]
+bottom_line_pts = np.array([start_pos, end_pos])
+ret_val = bottom_line_pts
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_7" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
 # draw a pyramid as a triangle on the ground.
 say('ok - drawing a pyramid as a triangle on the ground')
 pyramid_shape_pts = parse_shape_pts('a triangle with size 10cm on the ground')
@@ -1212,7 +1234,7 @@ def get_points_from_polygon(shape):
                             </div>
                         </div>
 
-                        <div class="row" id="content_draw_7" style="display:none">
+                        <div class="row" id="content_draw_8" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
 # draw a smaller pyramid a little bit to the left.
@@ -1240,7 +1262,7 @@ def scale_pts_around_centroid_np(traj_pts, scale_x=1.5, scale_y=1.5):
                             </div>
                         </div>
                         
-                        <div class="row" id="content_draw_8" style="display:none">
+                        <div class="row" id="content_draw_9" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
 # erase the sun the ground and the pyramid.
@@ -1251,7 +1273,7 @@ erase(pts_to_erase)
                             </div>
                         </div>
 
-                        <div class="row" id="content_draw_9" style="display:none">
+                        <div class="row" id="content_draw_10" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
 # draw circles around the blocks.
@@ -1306,7 +1328,7 @@ def interpolate_pts_along_exterior(exterior, n):
                             </div>
                         </div>
 
-                        <div class="row" id="content_draw_10" style="display:none">
+                        <div class="row" id="content_draw_11" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
 # draw a square around the sweeter fruit.
@@ -1670,8 +1692,6 @@ ret_val = ['banana', 'apple']
                 </h3>
                 <p class="text-justify">
                     Special thanks to Vikas Sindhwani, Vincent Vanhoucke for helpful feedback on writing, Chad Boodoo for operations and hardware support.
-                    <br>
-                    The website template was borrowed from <a href="http://jonbarron.info/">Jon Barron</a>.
                 </p>
             </div>
         </div>
