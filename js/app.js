@@ -163,10 +163,12 @@ $(document).ready(function() {
                 // pause video after current segment finishes 
                 vid_should_check_pause[domain_name] = true;
                 var pausing_function = function() {
-                    if (vid_should_check_pause[domain_name] && 
-                        this.currentTime >= vid_end_times[domain_name][desired_cmd_idx]) {
-                        
-                        this.pause();
+                    if (vid_should_check_pause[domain_name]) {
+                        if (this.currentTime >= vid_end_times[domain_name][desired_cmd_idx]) {
+                            this.pause();
+                            this.removeEventListener("timeupdate", pausing_function);
+                        }
+                    } else {
                         this.removeEventListener("timeupdate", pausing_function);
                     }
                 };
