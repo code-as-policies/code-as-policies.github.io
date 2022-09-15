@@ -33,9 +33,11 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
     <link rel="stylesheet" href="css/app.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
     
@@ -183,7 +185,6 @@
             </div>
         </div> -->
 
-
         <div class="row justify-content-md-center">
             <div class="col-md-10 col-lg-8">
                 <h3>
@@ -225,7 +226,7 @@
                         <h5 class="card-title">Tabletop Manipulation: Blocks </h5>
                         <p class="card-text"> Choose a command:</p>
                         <select class="form-select" size="5" aria-label="size 5 select example">
-                            <option value="blocks_1">
+                            <option value="blocks_1" selected>
                                 1) Put the blocks in a horizontal line near the top
                             </option>
                             <option value="blocks_2">
@@ -269,7 +270,7 @@
                         <h5 class="card-title">Tabletop Manipulation: Blocks and Bowls </h5>
                         <p class="card-text"> Choose a command:</p>
                         <select class="form-select" size="5" aria-label="size 5 select example">
-                            <option value="blocksbowls_1">
+                            <option value="blocksbowls_1" selected>
                                 1) Put the red block to the left of the rightmost bowl
                             </option>
                             <option value="blocksbowls_2">
@@ -304,7 +305,7 @@
                         <h5 class="card-title">Tabletop Manipulation: Blocks and Bowls </h5>
                         <p class="card-text"> Choose a command:</p>
                         <select class="form-select" size="5" aria-label="size 5 select example">
-                            <option value="fbp_1">
+                            <option value="fbp_1" selected>
                                 1) How many fruits are there?
                             </option>
                             <option value="fbp_2">
@@ -333,7 +334,7 @@
                         <h5 class="card-title">Whiteboard Drawing </h5>
                         <p class="card-text"> Choose a command:</p>
                         <select class="form-select" size="5" aria-label="size 5 select example">
-                            <option value="draw_1">
+                            <option value="draw_1" selected>
                                 1) Draw a 5cm hexagon around the middle
                             </option>
                             <option value="draw_2">
@@ -371,22 +372,180 @@
                         <h5 class="card-title">Mobile Robot: Navigation </h5>
                         <p class="card-text"> Choose a command:</p>
                         <select class="form-select" size="5" aria-label="size 5 select example">
-                            <option value="mobilenav_1">
+                            <option value="mobilenav_1" selected>
                                 1) Moving in a 3m by 2m rectangle around the office chair
                             </option>
                             <option value="mobilenav_2">
                                 2) Do that again but rotated 45 degrees clockwise
                             </option>
                             <option value="mobilenav_3">
-                                3) Go in a 1.5m square around the barstool as many times as needed, check each step if there is a banana, only stop moving when you see the banana
+                                3) Go in a 1.5m square around the stool as many times as needed, check each step if there is a banana, only stop moving when you see the banana
                             </option>
                             <option value="mobilenav_4">
                                 4) Follow the convex hull containing the chairs
                             </option>
                             <option value="mobilenav_5">
-                                5) Move back and forth between the table and the countertop 3 times
+                                5) Move back and forth between the table and the countertop twice
                             </option>
                         </select>
+
+                        <div class="row" id="content_mobilenav_1">
+                            <div class="col-md-12">
+                                <video id="vid_1_mobilenav_1" width="100%" preload="auto" playsinline controls>
+                                    <source src="videos/mobilenav_0_rect_phone.mp4" type="video/mp4">
+                                </video>
+                                <!-- <video id="vid_2_mobilenav_1" width="100%" preload="auto" playsinline controls>
+                                    <source src="videos/mobilenav_0_rect_pensive.mp4" type="video/mp4">
+                                </video> -->
+                            </div>
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# move the robot in a 2m by 1m rectangle around the office chair.
+traj = parse_position('a 2m by 1m rectangle around the office chair with 4 points')
+say('ok - moving in a 2m by 1m rectangle around the office chair')
+for pos in traj:
+    goto_pos(pos, speed=0.5)
+
+# a 2m by 1m rectangle around the office chair with 4 points.
+office_chair_name = parse_loc_name('the office chair', f'objects = {get_loc_names()}')
+office_chair_pos = get_loc_pos(office_chair_name)
+shape_2d = make_rectangle(width=2, height=1, center=office_chair_pos)
+points_2d = get_points_from_polygon(shape_2d)
+points_3d = np.c_[points_2d, np.zeros(len(points_2d))]
+ret_val = points_3d
+
+# define function: shape_2d = make_rectangle(width=2, height=1, center=office_chair_pos).
+def make_rectangle(width, height, center):
+    shape_2d = box(center[0] - width / 2, center[1] - height / 2, center[0] + width / 2, center[1] + height / 2)
+    return shape_2d
+
+objects = ['table', 'countertop', 'desk', 'recycle bin', 'office chair', 'stool', 'steel chair', 'folding chair']
+# the office chair.
+ret_val = 'office chair'
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_mobilenav_2" style="display:none">
+                            <div class="col-md-12">
+                                <video id="vid_1_mobilenav_2" width="100%" preload="auto" playsinline controls>
+                                    <source src="videos/mobilenav_1_rect_phone.mp4" type="video/mp4">
+                                </video>
+                                <!-- <video id="vid_2_mobilenav_2" width="100%" preload="auto" playsinline controls>
+                                    <source src="videos/mobilenav_1_rect_pensive.mp4" type="video/mp4">
+                                </video> -->
+                            </div>
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# do that again but rotated 45 degrees clockwise.
+traj = transform_traj('rotate it 45 degrees clockwise', traj_pts=traj)
+say('no problem - rotating the rectangle 45 degrees clockwise')
+for pos in traj:
+    goto_pos(pos, speed=0.5)
+
+# rotate it 45 degrees clockwise.
+new_traj_pts = rotate_3d_pts_around_centroid_np(traj_pts, angle_z=-np.deg2rad(45))
+
+# define function: new_traj_pts = rotate_3d_pts_around_centroid_np(traj_pts, angle_z=(- np.deg2rad(45))).
+def rotate_3d_pts_around_centroid_np(traj_pts, angle_z):
+    centroid = np.mean(traj_pts, axis=0)
+    traj_pts_centered = traj_pts - centroid
+    traj_pts_rotated = np.dot(traj_pts_centered, np.array([[np.cos(angle_z), -np.sin(angle_z), 0], [np.sin(angle_z), np.cos(angle_z), 0], [0, 0, 1]]))
+    traj_pts_rotated_and_centered = traj_pts_rotated + centroid
+    return traj_pts_rotated_and_centered
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_mobilenav_3" style="display:None">
+                            <div class="col-md-12">
+                                <video id="vid_1_mobilenav_3" width="100%" preload="auto" playsinline controls>
+                                    <source src="videos/mobilenav_2_coke_phone.mp4" type="video/mp4">
+                                </video>
+                                <!-- <video id="vid_2_mobilenav_3" width="100%" preload="auto" playsinline controls>
+                                    <source src="videos/mobilenav_2_coke_pensive.mp4" type="video/mp4">
+                                </video> -->
+                            </div>
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# go in a 1.5m square around the stool as many times as needed, check each step if there is a coco cola can, only stop moving when you see the coco cola can.
+say('ok - going in a 1.5m square around the stool as many times as needed, checking each step if there is a coco cola can, only stopping when I see the coco cola can')
+traj = parse_position('a 1.5m square around the stool with 4 points')
+while True:
+    for pos in traj:
+    goto_pos(pos)
+    if is_obj_visible('coco cola can', loc='stool'):
+        break
+    if is_obj_visible('coco cola can', loc='stool'):
+    break
+say('I see the coco cola can')
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_mobilenav_4" style="display:None">
+                            <div class="col-md-12">
+                                <video id="vid_1_mobilenav_4" width="100%" preload="auto" playsinline controls>
+                                    <source src="videos/mobilenav_3_convex_hull_phone.mp4" type="video/mp4">
+                                </video>
+                                <!-- <video id="vid_2_mobilenav_4" width="100%" preload="auto" playsinline controls>
+                                    <source src="videos/mobilenav_3_convex_hull_pensive.mp4" type="video/mp4">
+                                </video> -->
+                            </div>
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# follow the convex hull containing the chairs.
+say('ok - following the convex hull containing the chairs')
+traj = parse_position('the convex hull containing the chairs')
+for pos in traj:
+    goto_pos(pos, speed=0.5)
+
+ok - following the convex hull containing the chairs
+LMP parse_position exec:
+
+# the convex hull containing the chairs.
+chair_names = parse_obj_name('the chairs', f'objects = {get_loc_names()}')
+chair_positions = np.array([get_loc_pos(chair_name) for chair_name in chair_names])
+shape_2d = make_convex_hull(points=chair_positions[:, :2])
+points_2d = get_points_from_polygon(shape_2d)
+points_3d = np.c_[points_2d, np.zeros(len(points_2d))]
+ret_val = points_3d
+
+# define function: shape_2d = make_convex_hull(points=chair_positions[:, :2]).
+def make_convex_hull(points):
+    return MultiPoint(points).convex_hull
+
+# define function: points_2d = get_points_from_polygon(shape_2d).
+def get_points_from_polygon(shape_2d):
+    return np.array(shape_2d.exterior.coords)
+
+objects = ['table', 'countertop', 'desk', 'recycle bin', 'office chair', 'stool', 'wood chair']
+# the chairs.
+ret_val = ['office chair', 'stool', 'wood chair']                                    
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_mobilenav_5" style="display:None">
+                            <div class="col-md-12">
+                                <video id="vid_1_mobilenav_5" width="100%" preload="auto" playsinline controls>
+                                    <source src="videos/mobilenav_4_back_and_forth_phone.mp4" type="video/mp4">
+                                </video>
+                                <!-- <video id="vid_2_mobilenav_5" width="100%" preload="auto" playsinline controls>
+                                    <source src="videos/mobilenav_4_back_and_forth_pensive.mp4" type="video/mp4">
+                                </video> -->
+                            </div>
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# move back and forth between the table and the countertop twice.
+say('ok - moving back and forth between the table and the countertop twice')
+for _ in range(2):
+    goto_loc('table')
+    goto_loc('countertop')
+                                </code></pre>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="card">
@@ -394,28 +553,106 @@
                         <h5 class="card-title">Mobile Robot: Manipulation </h5>
                         <p class="card-text"> Choose a command:</p>
                         <select class="form-select" size="5" aria-label="size 5 select example">
-                            <option value="mobilemnp_1">
-                                1) How many snacks are on the table?
+                            <option value="mobilemnp_1" selected>
+                                1) Put way the coke can and the apple on their corresponding bins
                             </option>
                             <option value="mobilemnp_2">
                                 2) Take the water bottle from the desk and put it in the middle of the fruits on the table
                             </option>
                             <option value="mobilemnp_3">
-                                3) This is the compost bin
-                            </option>
-                            <option value="mobilemnp_4">
-                                4) This is the recycle bin
-                            </option>
-                            <option value="mobilemnp_5">
-                                5) This is the landfill bin
-                            </option>
-                            <option value="mobilemnp_6">
-                                6) The coke can and the apple are on the table
-                            </option>
-                            <option value="mobilemnp_7">
-                                7) Put way the coke can and the apple on their corresponding bins
+                                3) How many fruits are on the table?
                             </option>
                         </select>
+
+                        <div class="row" id="content_mobilemnp_1">
+                            <div class="col-md-12">
+                                <video id="vid_1_mobilenav_1" width="100%" preload="auto" playsinline controls>
+                                    <source src="videos/mobilemnp_sort_trash_4x_stab_narrated.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# This is the compost bin.
+compost_bin_pos, compost_bin_angle = get_robot_pos_and_angle()
+compost_bin_name = 'compost bin'
+say('ok')
+
+# This is the recycle bin.
+recycle_bin_pos, recycle_bin_angle = get_robot_pos_and_angle()
+recycle_bin_name = 'recycle bin'
+say('ok')
+
+# This is the landfill bin.
+landfill_bin_pos, landfill_bin_angle = get_robot_pos_and_angle()
+landfill_bin_name = 'landfill bin'
+say('ok')
+
+# The coke can and the apple are on the table.
+coke_can_loc = 'table'
+apple_loc = 'table'
+say('ok')
+
+# Put way the coke can and the apple on their corresponding bins.
+say('got it - putting the coke can and the apple on their corresponding bins')
+goto_loc(coke_can_loc); pick_obj('coke can')
+goto_pos(recycle_bin_pos, angle=recycle_bin_angle)
+place_at_obj(recycle_bin_name)
+goto_loc(apple_loc); pick_obj('apple')
+goto_pos(compost_bin_pos, angle=compost_bin_angle)
+place_at_obj(compost_bin_name)
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_mobilemnp_2" style="display:none">
+                            <div class="col-md-12">
+                                <video id="vid_1_mobilenav_2" width="100%" preload="auto" playsinline controls>
+                                    <source src="videos/mobilemnp_coke_between_fruit_4x_stab.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# take the water bottle from the cart and put it in the middle of the fruits on the table.
+say('sure - taking the water bottle from the cart and putting it in the middle of the fruits on the table')
+water_bottle_loc = 'cart'
+goto_loc(water_bottle_loc); pick_obj('water bottle')
+fruits_loc = 'table'
+goto_loc(fruits_loc); target_pos = parse_position('a point in the middle of the fruits')
+place_at_pos(target_pos)
+
+# a point in the middle of the fruits.
+fruit_names = parse_obj_name('the fruits', f'objects = {get_visible_obj_names()}')
+fruit_positions = np.array([get_obj_pos(fruit_name) for fruit_name in fruit_names])
+ret_val = np.mean(fruit_positions, axis=0)
+
+objects = ['chips bag', 'apple', 'banana']
+# the fruits.
+ret_val = ['apple', 'banana']
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_mobilemnp_3" style="display:none">
+                            <div class="col-md-12">
+                                <video id="vid_1_mobilenav_1" width="100%" preload="auto" playsinline controls>
+                                    <source src="videos/mobilemnp_how_many_fruits_phone.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# how many fruits are on the table.
+say('ok - looking for fruits on the table')
+goto_loc('table')
+snack_names = parse_obj_name('the fruits', f'objects = {get_visible_obj_names()}')
+say(f'I see {len(snack_names)} fruits')
+
+objects = ['chips bag', 'water bottle', 'coco cola can', 'apple', 'oreo cookies', 'banana']
+# the fruits.
+ret_val = ['banana', 'apple']
+                                </code></pre>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -454,5 +691,6 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>hljs.highlightAll();</script>
 </body>
 </html>

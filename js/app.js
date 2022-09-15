@@ -6,13 +6,46 @@ $(document).ready(function() {
         readOnly:true
     });
 
+    var current_cmd_idxs = {
+        "blocks": 1,
+        "blocksbowls": 1,
+        "fbp": 1,
+        "draw": 1,
+        "mobilenav": 1,
+        "mobilemanip": 1
+    }
+
     // demos
     $('select').on('change', function() {
         var sep_idx = this.value.indexOf('_');
         var domain_name = this.value.substring(0, sep_idx);
-        var cmd_idx = parseInt(this.value.substring(sep_idx + 1));
+        var desired_cmd_idx = parseInt(this.value.substring(sep_idx + 1));
         console.log(domain_name);
-        console.log(cmd_idx);
+        console.log(desired_cmd_idx);
+
+        var current_cmd_idx = current_cmd_idxs[domain_name];
+        if (current_cmd_idx != desired_cmd_idx) {
+            // hide current content
+            var current_content = $('#content_' + domain_name + "_" + current_cmd_idx.toString());
+            current_content.hide();
+
+            // stop current videos
+            if (domain_name.startsWith("mobile")) {
+                $('#vid_1_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
+                // $('#vid_2_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
+            } else {
+                $('#vid_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
+            }
+
+            // show desired content
+            var desired_content = $('#content_' + domain_name + "_" + desired_cmd_idx.toString());
+            desired_content.show();
+
+            // set current to desired
+            current_cmd_idxs[domain_name] = desired_cmd_idx;
+
+            // set vido timestamp
+        }
     });
     
 
