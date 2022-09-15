@@ -77,8 +77,6 @@ $(document).ready(function() {
         var sep_idx = this.value.indexOf('_');
         var domain_name = this.value.substring(0, sep_idx);
         var desired_cmd_idx = parseInt(this.value.substring(sep_idx + 1));
-        console.log(domain_name);
-        console.log(desired_cmd_idx);
 
         var current_cmd_idx = current_cmd_idxs[domain_name];
         if (current_cmd_idx != desired_cmd_idx) {
@@ -94,7 +92,6 @@ $(document).ready(function() {
                 // set vido timestamp
                 var vid = $("#vid_" + domain_name)[0];
                 var time = vid_times[domain_name][desired_cmd_idx];
-                console.log(time);
                 setTime(vid, time);
             }
 
