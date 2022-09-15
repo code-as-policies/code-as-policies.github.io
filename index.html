@@ -225,7 +225,7 @@ Code and videos are available at https://code-as-policies.github.io
             <div class="col-md-10 col-lg-8">
                 <h3>Experiment Videos and Generated Code</h3>
                 <p>Videos have sound that showcase voice and speech-based robot interface.</p>
-                <p>Long pauses between command and response are mostly caused by OpenAI API query times and rate limiting.</p>
+                <p>Long pauses between commands and responses are mostly caused by OpenAI API query times and rate limiting.</p>
                 <div class="card mb-4 mt-4 text-dark bg-light">
                     <h5 class="card-header">Tabletop Manipulation: Blocks</h5>
                     <div class="card-body">
@@ -1382,7 +1382,7 @@ def get_points_from_polygon(shape):
                                 2) Do that again but rotated 45 degrees clockwise
                             </option>
                             <option value="mobilenav_3">
-                                3) Go in a 1.5m square around the stool as many times as needed, check each step if there is a coco cola can, only stop moving when you see the coco cola can
+                                3) Go in a 1.5m square around the stool as many times as needed, check each step if there is a coca cola can, only stop moving when you see the coca cola can
                             </option>
                             <option value="mobilenav_4">
                                 4) Follow the convex hull containing the chairs
@@ -1471,17 +1471,17 @@ def rotate_3d_pts_around_centroid_np(traj_pts, angle_z):
                             </div>
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-# go in a 1.5m square around the stool as many times as needed, check each step if there is a coco cola can, only stop moving when you see it.
-say('ok - going in a 1.5m square around the stool as many times as needed, checking each step if there is a coco cola can, only stopping when I see it')
+# go in a 1.5m square around the stool as many times as needed, check each step if there is a coca cola can, only stop moving when you see it.
+say('ok - going in a 1.5m square around the stool as many times as needed, checking each step if there is a coca cola can, only stopping when I see it')
 traj = parse_position('a 1.5m square around the stool with 4 points')
 while True:
     for pos in traj:
     goto_pos(pos)
-    if is_obj_visible('coco cola can', loc='stool'):
+    if is_obj_visible('coca cola can', loc='stool'):
         break
-    if is_obj_visible('coco cola can', loc='stool'):
+    if is_obj_visible('coca cola can', loc='stool'):
     break
-say('I see the coco cola can')
+say('I see the coca cola can')
                                 </code></pre>
                             </div>
                         </div>
@@ -1563,10 +1563,10 @@ for _ in range(2):
                     <div class="card-body">                        
                         <select class="form-select" size="3" aria-label="size 3 select example">
                             <option value="mobilemnp_1" selected>
-                                1) Put way the coco cola can and the apple on their corresponding bins
+                                1) Put way the coca cola can and the apple on their corresponding bins
                             </option>
                             <option value="mobilemnp_2">
-                                2) Take the coco cola can from the desk and put it in the middle of the fruits on the table
+                                2) Take the coca cola can from the desk and put it in the middle of the fruits on the table
                             </option>
                             <option value="mobilemnp_3">
                                 3) How many fruits are on the table?
@@ -1621,10 +1621,10 @@ place_at_obj(compost_bin_name)
                             </div>
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-# take the coco cola can from the cart and put it in the middle of the fruits on the table.
-say('sure - taking the coco cola can from the cart and putting it in the middle of the fruits on the table')
+# take the coca cola can from the cart and put it in the middle of the fruits on the table.
+say('sure - taking the coca cola can from the cart and putting it in the middle of the fruits on the table')
 water_bottle_loc = 'cart'
-goto_loc(water_bottle_loc); pick_obj('coco cola can')
+goto_loc(water_bottle_loc); pick_obj('coca cola can')
 fruits_loc = 'table'
 goto_loc(fruits_loc); target_pos = parse_position('a point in the middle of the fruits')
 place_at_pos(target_pos)
@@ -1655,7 +1655,7 @@ goto_loc('table')
 snack_names = parse_obj_name('the fruits', f'objects = {get_visible_obj_names()}')
 say(f'I see {len(snack_names)} fruits')
 
-objects = ['chips bag', 'water bottle', 'coco cola can', 'apple', 'oreo cookies', 'banana']
+objects = ['chips bag', 'water bottle', 'coca cola can', 'apple', 'oreo cookies', 'banana']
 # the fruits.
 ret_val = ['banana', 'apple']
                                 </code></pre>
