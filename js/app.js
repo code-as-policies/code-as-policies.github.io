@@ -132,7 +132,7 @@ $(document).ready(function() {
     Object.keys(vid_should_check_pause).forEach(domain_name => {
         const events = ["seeking", "ended"];
         events.forEach(event => {
-            $("#vid_" + domain_name).addEventListener(event, function() {
+            $("#vid_" + domain_name)[0].addEventListener(event, function() {
                 vid_should_check_pause[domain_name] = false;
             });
         })
