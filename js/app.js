@@ -12,7 +12,7 @@ $(document).ready(function() {
         "fbp": 1,
         "draw": 1,
         "mobilenav": 1,
-        "mobilemanip": 1
+        "mobilemnp": 1
     }
 
     // demos
@@ -33,8 +33,6 @@ $(document).ready(function() {
             if (domain_name.startsWith("mobile")) {
                 $('#vid_1_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
                 // $('#vid_2_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
-            } else {
-                $('#vid_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
             }
 
             // show desired content

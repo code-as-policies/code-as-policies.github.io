@@ -218,13 +218,10 @@
 
         <div class="row justify-content-md-center">
             <div class="col-md-10 col-lg-8">
-                <h3>
-                    Results
-                </h3>
-                <div class="card">
+                <h3>Demo Videos and Generated Code</h3>
+                <div class="card mb-2 mt-2 text-dark bg-light">
+                    <h5 class="card-header">Tabletop Manipulation: Blocks</h5>
                     <div class="card-body">
-                        <h5 class="card-title">Tabletop Manipulation: Blocks </h5>
-                        <p class="card-text"> Choose a command:</p>
                         <select class="form-select" size="5" aria-label="size 5 select example">
                             <option value="blocks_1" selected>
                                 1) Put the blocks in a horizontal line near the top
@@ -263,12 +260,317 @@
                                 12) Put the blocks on different corners clockwise starting at the top right corner
                             </option>
                         </select>
+                        <div class="col-md-12">
+                            <video id="vid_blocks" width="100%" preload="auto" playsinline controls>
+                                <source src="videos/blocks.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <div class="row" id="content_blocks_1">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# put the blocks in a horizontal line near the top.
+say('Ok - putting the blocks in a horizontal line near the top')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+line_pts = parse_position(f'a horizontal line near the top with {len(block_names)} points')
+for block_name, pt in zip(block_names, line_pts):
+    put_first_on_second(block_name, pt)
+
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# the blocks.
+ret_val = ['small red square', 'small green square', 'small blue square', 'small orange square']
+
+# a horizontal line near the top with 4 points.
+top_pos = denormalize_xy([0.5, 1])
+start_pos = top_pos + [-0.3/2, 0]
+end_pos = top_pos + [0.3/2, 0]
+line = make_line(start=start_pos, end=end_pos)
+points = interpolate_pts_on_line(line=line, n=4)
+ret_val = points
+
+def make_line(start, end):
+    line = LineString([start, end])
+    return line
+
+def interpolate_pts_on_line(line, n):
+    pts = []
+    for i in range(n):
+        t = i / (n - 1)
+        pt = interpolate_line(line, t)
+        pts.append(pt)
+    return np.array(pts)
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_2" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# move the sky color block in between the red block and the second block from the left.
+say('Ok - putting the blue block in between the red block and the second block from the left')
+target_pos = parse_position('a point in the middle between the red block and the second block from the left')
+put_first_on_second('small blue square', target_pos)
+
+# a point in the middle between the red block and the second block from the left.
+red_block_name = parse_obj_name('the red block', f'objects = {get_obj_names()}')
+second_block_name = parse_obj_name('the second block from the left', f'objects = {get_obj_names()}')
+red_block_pos = get_obj_pos(red_block_name)
+second_block_pos = get_obj_pos(second_block_name)
+ret_val = (red_block_pos + second_block_pos) / 2
+
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# the red block.
+ret_val = 'small red square'
+
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# the second block from the left.
+block_names = ['small red square', 'small green square', 'small blue square', 'small orange square']
+block_positions = get_obj_positions_np(block_names)
+left_block_idx = np.argsort(block_positions[:, 0])[1]
+left_block_name = block_names[left_block_idx]
+ret_val = left_block_name
+
+# define function: block_positions = get_obj_positions_np(block_names).
+def get_obj_positions_np(obj_names):
+    obj_positions = []
+    for obj_name in obj_names:
+        obj_positions.append(get_obj_pos(obj_name))
+    return np.array(obj_positions)
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_3" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# why did you move the green block.
+say('I did not move the green block')                                    
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_4" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# which block did you move.
+say('I moved the blue block')                                                                      
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_5" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# arrange the blocks in a square around the middle.
+say('Ok - arranging the blocks in a square around the middle')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+square_pts = parse_position(f'a square with size 10cm around the middle with {len(block_names)} points')
+for block_name, pt in zip(block_names, square_pts):
+    put_first_on_second(block_name, pt)
+
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# the blocks.
+ret_val = ['small red square', 'small green square', 'small blue square', 'small orange square']
+
+# a square with size 10cm around the middle with 4 points.
+polygon = make_square(size=0.1, center=denormalize_xy([0.5, 0.5]))
+points = get_points_from_polygon(polygon)
+ret_val = points
+
+# define function; polygon = make_square(size=0.1, center=denormalize_xy([0.5, 0.5])).
+def make_square(size, center):
+    square = Polygon([
+        center + [-size/2, -size/2],
+        center + [size/2, -size/2], 
+        center + [size/2, size/2], 
+        center + [-size/2, size/2]
+    ])
+    return square
+
+# define function; points = get_points_from_polygon(polygon).
+def get_points_from_polygon(shape):
+    return np.array(shape.exterior.coords)
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_6" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# make the square bigger.
+say('Ok - making the square bigger')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+square_pts = parse_position(f'a square with size 20cm around the middle with {len(block_names)} points')
+for block_name, pt in zip(block_names, square_pts):
+    put_first_on_second(block_name, pt)
+
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# the blocks.
+ret_val = ['small red square', 'small green square', 'small blue square', 'small orange square']
+
+polygon = make_square(size=0.2, center=denormalize_xy([0.5, 0.5]))
+points = get_points_from_polygon(polygon)
+ret_val = points                                    
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_7" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# undo that.
+say('Ok - making the square smaller')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+square_pts = parse_position(f'a square with size 10cm around the middle with {len(block_names)} points')
+for block_name, pt in zip(block_names, square_pts):
+    put_first_on_second(block_name, pt)
+
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# the blocks.
+ret_val = ['small red square', 'small green square', 'small blue square', 'small orange square']
+
+# a square with size 10cm around the middle with 4 points.
+polygon = make_square(size=0.1, center=denormalize_xy([0.5, 0.5]))
+points = get_points_from_polygon(polygon)
+ret_val = points                                                                 
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_8" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# rotates the square by 45 degrees.
+say('Ok - rotating the square by 45 degrees')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+square_pts = parse_position(f'a square with size 10cm around the middle with {len(block_names)} points rotated by 45 degrees')
+for block_name, pt in zip(block_names, square_pts):
+    put_first_on_second(block_name, pt)
+
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# the blocks.
+ret_val = ['small red square', 'small green square', 'small blue square', 'small orange square']
+
+# a square with size 10cm around the middle with 4 points rotated by 45 degrees.
+polygon = make_square(size=0.1, center=denormalize_xy([0.5, 0.5]))
+polygon = rotate(polygon, 45)
+points = get_points_from_polygon(polygon)
+ret_val = points                                                                                                
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_9" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# can you throw blocks.
+say('no, I can only move objects around')                                                                                                                     
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_10" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# move the red block 5 cm to the bottom.
+say('Ok - moving the red block 5cm to the bottom')
+target_pos = parse_position('a point 5cm below the red block')
+put_first_on_second('small red square', target_pos)
+
+# a point 5cm below the red block.
+block_name = parse_obj_name('the red block', f'objects = {get_obj_names()}')
+ret_val = get_obj_pos(block_name) + [0, -0.05]
+
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# the red block.
+ret_val = 'small red square'                                                                                                                                                      
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_11" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# do the same with the other blocks.
+say('Ok - moving the other blocks 5cm to the bottom')
+block_names = parse_obj_name('the blocks other than the red block', f'objects = {get_obj_names()}')
+for block_name in block_names:
+    target_pos = parse_position(f'a point 5cm below the {block_name}')
+    put_first_on_second(block_name, target_pos)
+
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# the blocks other than the red block.
+ret_val = ['small green square', 'small blue square', 'small orange square']
+
+# a point 5cm below the small green square.
+square_name = parse_obj_name('the small green square', f'objects = {get_obj_names()}')
+ret_val = get_obj_pos(square_name) + [0, -0.05]
+
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# the small green square.
+ret_val = 'small green square'
+
+# a point 5cm below the small blue square.
+square_name = parse_obj_name('the small blue square', f'objects = {get_obj_names()}')
+ret_val = get_obj_pos(square_name) + [0, -0.05]
+
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# the small blue square.
+ret_val = 'small blue square'
+
+# a point 5cm below the small orange square.
+square_name = parse_obj_name('the small orange square', f'objects = {get_obj_names()}')
+square_pos = get_obj_pos(square_name)
+ret_val = square_pos + [0, -0.05]
+
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# the small orange square.
+ret_val = 'small orange square'                                                                                                                                                                                        
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_12" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# put the blocks on different corners clockwise starting at the top right corner.
+say('Ok - putting the blocks on different corners clockwise starting at the top right corner')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+corners = parse_position('the corners clockwise starting at the top right corner')
+for block_name, pos in zip(block_names, corners):
+    put_first_on_second(block_name, pos)
+
+objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+# the blocks.
+ret_val = ['small red square', 'small green square', 'small blue square', 'small orange square']
+
+# the corners clockwise starting at the top right corner.
+top_right_pos = denormalize_xy([1, 1])
+bottom_right_pos = denormalize_xy([1, 0])
+bottom_left_pos = denormalize_xy([0, 0])
+top_left_pos = denormalize_xy([0, 1])
+ret_val = [top_right_pos, bottom_right_pos, bottom_left_pos, top_left_pos]
+                                </code></pre>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Tabletop Manipulation: Blocks and Bowls </h5>
-                        <p class="card-text"> Choose a command:</p>
+                <div class="card mb-2 mt-2 text-dark bg-light">
+                    <h5 class="card-header">Tabletop Manipulation: Blocks and Bowls </h5>
+                    <div class="card-body">                        
                         <select class="form-select" size="5" aria-label="size 5 select example">
                             <option value="blocksbowls_1" selected>
                                 1) Put the red block to the left of the rightmost bowl
@@ -300,10 +602,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Tabletop Manipulation: Blocks and Bowls </h5>
-                        <p class="card-text"> Choose a command:</p>
+                <div class="card mb-2 mt-2 text-dark bg-light">
+                    <h5 class="card-header">Tabletop Manipulation: Blocks and Bowls </h5>
+                    <div class="card-body">                        
                         <select class="form-select" size="5" aria-label="size 5 select example">
                             <option value="fbp_1" selected>
                                 1) How many fruits are there?
@@ -329,10 +630,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Whiteboard Drawing </h5>
-                        <p class="card-text"> Choose a command:</p>
+                <div class="card mb-2 mt-2 text-dark bg-light">
+                    <h5 class="card-header">Whiteboard Drawing </h5>
+                    <div class="card-body">                        
                         <select class="form-select" size="5" aria-label="size 5 select example">
                             <option value="draw_1" selected>
                                 1) Draw a 5cm hexagon around the middle
@@ -367,10 +667,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Mobile Robot: Navigation </h5>
-                        <p class="card-text"> Choose a command:</p>
+                <div class="card mb-2 mt-2 text-dark bg-light">
+                    <h5 class="card-header">Mobile Robot: Navigation </h5>
+                    <div class="card-body">                        
                         <select class="form-select" size="5" aria-label="size 5 select example">
                             <option value="mobilenav_1" selected>
                                 1) Moving in a 3m by 2m rectangle around the office chair
@@ -379,7 +678,7 @@
                                 2) Do that again but rotated 45 degrees clockwise
                             </option>
                             <option value="mobilenav_3">
-                                3) Go in a 1.5m square around the stool as many times as needed, check each step if there is a banana, only stop moving when you see the banana
+                                3) Go in a 1.5m square around the stool as many times as needed, check each step if there is a coco cola can, only stop moving when you see the coco cola can
                             </option>
                             <option value="mobilenav_4">
                                 4) Follow the convex hull containing the chairs
@@ -468,8 +767,8 @@ def rotate_3d_pts_around_centroid_np(traj_pts, angle_z):
                             </div>
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-# go in a 1.5m square around the stool as many times as needed, check each step if there is a coco cola can, only stop moving when you see the coco cola can.
-say('ok - going in a 1.5m square around the stool as many times as needed, checking each step if there is a coco cola can, only stopping when I see the coco cola can')
+# go in a 1.5m square around the stool as many times as needed, check each step if there is a coco cola can, only stop moving when you see it.
+say('ok - going in a 1.5m square around the stool as many times as needed, checking each step if there is a coco cola can, only stopping when I see it')
 traj = parse_position('a 1.5m square around the stool with 4 points')
 while True:
     for pos in traj:
@@ -494,20 +793,22 @@ say('I see the coco cola can')
                             </div>
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-# follow the convex hull containing the chairs.
-say('ok - following the convex hull containing the chairs')
-traj = parse_position('the convex hull containing the chairs')
-for pos in traj:
-    goto_pos(pos, speed=0.5)
+# follow a 2x scaled up convex hull containing the chairs.
+traj = parse_position('a 2x scaled up convex hull containing the chairs with 20 points')
+say('ok - moving in a 2x scaled up convex hull containing the chairs')
+follow_traj(traj, speed=0.5)
 
-ok - following the convex hull containing the chairs
-LMP parse_position exec:
+# define function: follow_traj(traj, speed=0.5).
+def follow_traj(traj, speed=0.5):
+    for pt in traj.coords:
+        yield pt
 
-# the convex hull containing the chairs.
+# a 2x scaled up convex hull containing the chairs with 20 points.
 chair_names = parse_obj_name('the chairs', f'objects = {get_loc_names()}')
 chair_positions = np.array([get_loc_pos(chair_name) for chair_name in chair_names])
 shape_2d = make_convex_hull(points=chair_positions[:, :2])
-points_2d = get_points_from_polygon(shape_2d)
+shape_2d = scale(shape_2d, xfact=2, yfact=2)
+points_2d = interpolate_pts_along_exterior(exterior=shape_2d.exterior, n=20)
 points_3d = np.c_[points_2d, np.zeros(len(points_2d))]
 ret_val = points_3d
 
@@ -515,9 +816,14 @@ ret_val = points_3d
 def make_convex_hull(points):
     return MultiPoint(points).convex_hull
 
-# define function: points_2d = get_points_from_polygon(shape_2d).
-def get_points_from_polygon(shape_2d):
-    return np.array(shape_2d.exterior.coords)
+# define function: points_2d = interpolate_pts_along_exterior(exterior=shape_2d.exterior, n=20).
+def interpolate_pts_along_exterior(exterior, n):
+    pts = []
+    for i in range(n):
+        t = i / (n - 1)
+        pt = np.array(exterior.interpolate(t, normalized=True).coords[0])
+        pts.append(pt)
+    return pts
 
 objects = ['table', 'countertop', 'desk', 'recycle bin', 'office chair', 'stool', 'wood chair']
 # the chairs.
@@ -548,16 +854,15 @@ for _ in range(2):
 
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Mobile Robot: Manipulation </h5>
-                        <p class="card-text"> Choose a command:</p>
-                        <select class="form-select" size="5" aria-label="size 5 select example">
+                <div class="card mb-2 mt-2 text-dark bg-light">
+                    <h5 class="card-header">Mobile Robot: Manipulation </h5>
+                    <div class="card-body">                        
+                        <select class="form-select" size="3" aria-label="size 3 select example">
                             <option value="mobilemnp_1" selected>
-                                1) Put way the coke can and the apple on their corresponding bins
+                                1) Put way the coco cola can and the apple on their corresponding bins
                             </option>
                             <option value="mobilemnp_2">
-                                2) Take the water bottle from the desk and put it in the middle of the fruits on the table
+                                2) Take the coco cola can from the desk and put it in the middle of the fruits on the table
                             </option>
                             <option value="mobilemnp_3">
                                 3) How many fruits are on the table?
@@ -566,7 +871,7 @@ for _ in range(2):
 
                         <div class="row" id="content_mobilemnp_1">
                             <div class="col-md-12">
-                                <video id="vid_1_mobilenav_1" width="100%" preload="auto" playsinline controls>
+                                <video id="vid_1_mobilemnp_1" width="100%" preload="auto" playsinline controls>
                                     <source src="videos/mobilemnp_sort_trash_4x_stab_narrated.mp4" type="video/mp4">
                                 </video>
                             </div>
@@ -606,16 +911,16 @@ place_at_obj(compost_bin_name)
 
                         <div class="row" id="content_mobilemnp_2" style="display:none">
                             <div class="col-md-12">
-                                <video id="vid_1_mobilenav_2" width="100%" preload="auto" playsinline controls>
+                                <video id="vid_1_mobilemnp_2" width="100%" preload="auto" playsinline controls>
                                     <source src="videos/mobilemnp_coke_between_fruit_4x_stab.mp4" type="video/mp4">
                                 </video>
                             </div>
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-# take the water bottle from the cart and put it in the middle of the fruits on the table.
-say('sure - taking the water bottle from the cart and putting it in the middle of the fruits on the table')
+# take the coco cola can from the cart and put it in the middle of the fruits on the table.
+say('sure - taking the coco cola can from the cart and putting it in the middle of the fruits on the table')
 water_bottle_loc = 'cart'
-goto_loc(water_bottle_loc); pick_obj('water bottle')
+goto_loc(water_bottle_loc); pick_obj('coco cola can')
 fruits_loc = 'table'
 goto_loc(fruits_loc); target_pos = parse_position('a point in the middle of the fruits')
 place_at_pos(target_pos)
@@ -634,7 +939,7 @@ ret_val = ['apple', 'banana']
 
                         <div class="row" id="content_mobilemnp_3" style="display:none">
                             <div class="col-md-12">
-                                <video id="vid_1_mobilenav_1" width="100%" preload="auto" playsinline controls>
+                                <video id="vid_1_mobilemnp_3" width="100%" preload="auto" playsinline controls>
                                     <source src="videos/mobilemnp_how_many_fruits_phone.mp4" type="video/mp4">
                                 </video>
                             </div>
