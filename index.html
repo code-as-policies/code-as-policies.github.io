@@ -145,32 +145,25 @@
         
         <div class="row justify-content-md-center">
             <div class="col-md-10 col-lg-8">
-
-                <div class="col-md-12">
-                    <video id="v0" width="100%" preload="auto" playsinline controls>
-                        <source src="videos/3_min_explainer.mp4" type="video/mp4">
-                    </video>
-                </div>
-
-                <h3>
+                <p style="text-align:center;">
+                    <image src="img/share_image.png" width="100%">
+                </p>
+                <h3 class="mt-4 mb-2">
                     Abstract
                 </h3>
                 <p class="text-justify">
                     Can robots leverage large language models (LLMs) beyond high-level planning?
                     In this work, we find that code-writing LLMs (e.g. Codex) are surprisingly proficient at writing robot code to assemble low-level policies.
                     Given natural language commands as comments, LLMs can be prompted to generate functions that process perception outputs and parameterize control primitive APIs.
-                    By composing API calls with classic logic structures – and even using prior knowledge of third-party libraries such as NumPy or Shapely to perform complex arithmetic operations – code-writing LLMs exhibit spatial-geometric reasoning in rather simple ways that (i) generalize to new instructions and feedback loops, and (ii) can prescribe precise values (e.g. velocities) to ambiguous descriptions (``faster'') depending on context (\ie behavioral commonsense).
+                    By composing API calls with classic logic structures – and even using prior knowledge of third-party libraries such as NumPy or Shapely to perform complex arithmetic operations – code-writing LLMs exhibit spatial-geometric reasoning in rather simple ways that (i) generalize to new instructions and feedback loops, and (ii) can prescribe precise values (e.g. velocities) to ambiguous descriptions ("faster") depending on context (i.e behavioral commonsense).
                     This paper presents a robot-centric formalization of language-model programs (LMPs) that can represent reactive policies (e.g. impedance controllers), as well as waypoint-based policies (vision-based pick and place).
                     Experiments show that (i) prompting LLMs to write code performs better spatial-geometric reasoning than Chain of Thought, (ii) generating code hierarchically enables writing more complex policies and sets the new state-of-the-art on standard code generation benchmarks, and (iii) larger models generate better LMPs. 
                 </p>
-                <!-- <p style="text-align:center;">
-        	    	<video id="v0" width="100%" playsinline autoplay muted loop controls>
-                       <source src="img/palm_saycan_teaser_compressed.mp4" type="video/mp4">
-                   </video>
-                </p> -->
-                <p style="text-align:center;">
-                    <image src="img/share_image.png" width="100%">
-                </p>
+                <div class="col-md-12">
+                    <video id="v0" width="100%" preload="auto" playsinline controls>
+                        <source src="videos/3_min_explainer.mp4" type="video/mp4">
+                    </video>
+                </div>
             </div>
         </div>
 
@@ -189,9 +182,9 @@
 
         <div class="row justify-content-md-center">
             <div class="col-md-10 col-lg-8">
-                <h3>
+                <!-- <h3>
                     Approach
-                </h3>
+                </h3> -->
                 <!-- <p class="text-justify">
                     Imagine a robot operating in a kitchen that is capable of executing skills such as "pick up the coffee cup" or "go to the sink".
                     To get the robot to use these skills to perform a complex task (e.g. "I spilled my drink, can you help?"), the user could manually break it up into steps consisting of these atomic commands. 
@@ -218,9 +211,12 @@
             </div>
         </div>
 
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-md-center mt-4">
             <div class="col-md-10 col-lg-8">
-                <h3>Demo Videos and Generated Code</h3>
+                <h3>Experiment Videos and Generated Code</h3>
+                <p>
+                    Videos have sound that showcase voice and speech-based robot interface.
+                </p>
                 <div class="card mb-4 mt-4 text-dark bg-light">
                     <h5 class="card-header">Tabletop Manipulation: Blocks</h5>
                     <div class="card-body">
@@ -1647,15 +1643,14 @@ ret_val = ['banana', 'apple']
                     Citation 
                 </h3> 
                 <a href="https://arxiv.org/abs/??">[arxiv version]</a>
-                <div class="form-group col-md-10 col-md-offset-1">
+                <div class="form-group col-md-12">
                     <textarea id="bibtex" class="form-control" readonly>
 @inproceedings{codeaspolicies2022,
     title={Code as Policis: Language Model Programs for Embodied Control},
     author={Jacky Liang and Wenlong Huang and Fei Xia and Peng Xu and Karol Hausman and Brian Ichter and Pete Florence and Andy Zeng},
     booktitle={arXiv preprint arXiv:??},
     year={2022}
-}
-                    </textarea>
+}</textarea>
                 </div>
             </div>
         </div>
@@ -1666,8 +1661,8 @@ ret_val = ['banana', 'apple']
                     Acknowledgements
                 </h3>
                 <p class="text-justify">
-                    <!-- The authors would like to thank Fred Alcober, Yunfei Bai, Matt Bennice, Maarten Bosma, Justin Boyd, Bill Byrne, Kendra Byrne, Noah Constant, Pete Florence, Laura Graesser, Rico Jonschkowski, Daniel Kappler, Hugo Larochelle, Benjamin Lee, Adrian Li, Maysam Moussalem, Suraj Nair, Jane Park, Evan Rapoport, Krista Reymann, Jeff Seto, Dhruv Shah, Ian Storz, Razvan Surdulescu, Tom Small, Jason Wei, and Vincent Zhao for their help and support in various aspects of the project. -->
-                    <br><br>
+                    Special thanks to Vikas Sindhwani, Vincent Vanhoucke for helpful feedback on writing, Chad Boodoo for operations and hardware support.
+                    <br>
                     The website template was borrowed from <a href="http://jonbarron.info/">Jon Barron</a>.
                 </p>
             </div>
