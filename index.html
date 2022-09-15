@@ -145,11 +145,13 @@
         
         <div class="row justify-content-md-center">
             <div class="col-md-10 col-lg-8">
-                <!-- <p style="text-align:center;">
-        	    	<video id="v0" width="100%" playsinline autoplay muted loop controls>
-                       <source src="img/demo_sequence_compressed.mp4" type="video/mp4">
-                   </video>
-                </p> -->
+
+                <div class="col-md-12">
+                    <video id="v0" width="100%" preload="auto" playsinline controls>
+                        <source src="videos/3_min_explainer.mp4" type="video/mp4">
+                    </video>
+                </div>
+
                 <h3>
                     Abstract
                 </h3>
@@ -219,7 +221,7 @@
         <div class="row justify-content-md-center">
             <div class="col-md-10 col-lg-8">
                 <h3>Demo Videos and Generated Code</h3>
-                <div class="card mb-2 mt-2 text-dark bg-light">
+                <div class="card mb-4 mt-4 text-dark bg-light">
                     <h5 class="card-header">Tabletop Manipulation: Blocks</h5>
                     <div class="card-body">
                         <select class="form-select" size="5" aria-label="size 5 select example">
@@ -269,7 +271,7 @@
                         <div class="row" id="content_blocks_1">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # put the blocks in a horizontal line near the top.
 say('Ok - putting the blocks in a horizontal line near the top')
 block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
@@ -277,9 +279,9 @@ line_pts = parse_position(f'a horizontal line near the top with {len(block_names
 for block_name, pt in zip(block_names, line_pts):
     put_first_on_second(block_name, pt)
 
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # the blocks.
-ret_val = ['small red square', 'small green square', 'small blue square', 'small orange square']
+ret_val = ['red block', 'green block', 'blue block', 'orange block']
 
 # a horizontal line near the top with 4 points.
 top_pos = denormalize_xy([0.5, 1])
@@ -307,11 +309,11 @@ def interpolate_pts_on_line(line, n):
                         <div class="row" id="content_blocks_2" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # move the sky color block in between the red block and the second block from the left.
 say('Ok - putting the blue block in between the red block and the second block from the left')
 target_pos = parse_position('a point in the middle between the red block and the second block from the left')
-put_first_on_second('small blue square', target_pos)
+put_first_on_second('blue block', target_pos)
 
 # a point in the middle between the red block and the second block from the left.
 red_block_name = parse_obj_name('the red block', f'objects = {get_obj_names()}')
@@ -320,13 +322,13 @@ red_block_pos = get_obj_pos(red_block_name)
 second_block_pos = get_obj_pos(second_block_name)
 ret_val = (red_block_pos + second_block_pos) / 2
 
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # the red block.
-ret_val = 'small red square'
+ret_val = 'red block'
 
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # the second block from the left.
-block_names = ['small red square', 'small green square', 'small blue square', 'small orange square']
+block_names = ['red block', 'green block', 'blue block', 'orange block']
 block_positions = get_obj_positions_np(block_names)
 left_block_idx = np.argsort(block_positions[:, 0])[1]
 left_block_name = block_names[left_block_idx]
@@ -345,7 +347,7 @@ def get_obj_positions_np(obj_names):
                         <div class="row" id="content_blocks_3" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # why did you move the green block.
 say('I did not move the green block')                                    
                                 </code></pre>
@@ -355,7 +357,7 @@ say('I did not move the green block')
                         <div class="row" id="content_blocks_4" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # which block did you move.
 say('I moved the blue block')                                                                      
                                 </code></pre>
@@ -365,7 +367,7 @@ say('I moved the blue block')
                         <div class="row" id="content_blocks_5" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # arrange the blocks in a square around the middle.
 say('Ok - arranging the blocks in a square around the middle')
 block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
@@ -373,9 +375,9 @@ square_pts = parse_position(f'a square with size 10cm around the middle with {le
 for block_name, pt in zip(block_names, square_pts):
     put_first_on_second(block_name, pt)
 
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # the blocks.
-ret_val = ['small red square', 'small green square', 'small blue square', 'small orange square']
+ret_val = ['red block', 'green block', 'blue block', 'orange block']
 
 # a square with size 10cm around the middle with 4 points.
 polygon = make_square(size=0.1, center=denormalize_xy([0.5, 0.5]))
@@ -402,7 +404,7 @@ def get_points_from_polygon(shape):
                         <div class="row" id="content_blocks_6" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # make the square bigger.
 say('Ok - making the square bigger')
 block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
@@ -410,9 +412,9 @@ square_pts = parse_position(f'a square with size 20cm around the middle with {le
 for block_name, pt in zip(block_names, square_pts):
     put_first_on_second(block_name, pt)
 
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # the blocks.
-ret_val = ['small red square', 'small green square', 'small blue square', 'small orange square']
+ret_val = ['red block', 'green block', 'blue block', 'orange block']
 
 polygon = make_square(size=0.2, center=denormalize_xy([0.5, 0.5]))
 points = get_points_from_polygon(polygon)
@@ -424,7 +426,7 @@ ret_val = points
                         <div class="row" id="content_blocks_7" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # undo that.
 say('Ok - making the square smaller')
 block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
@@ -432,9 +434,9 @@ square_pts = parse_position(f'a square with size 10cm around the middle with {le
 for block_name, pt in zip(block_names, square_pts):
     put_first_on_second(block_name, pt)
 
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # the blocks.
-ret_val = ['small red square', 'small green square', 'small blue square', 'small orange square']
+ret_val = ['red block', 'green block', 'blue block', 'orange block']
 
 # a square with size 10cm around the middle with 4 points.
 polygon = make_square(size=0.1, center=denormalize_xy([0.5, 0.5]))
@@ -447,7 +449,7 @@ ret_val = points
                         <div class="row" id="content_blocks_8" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # rotates the square by 45 degrees.
 say('Ok - rotating the square by 45 degrees')
 block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
@@ -455,9 +457,9 @@ square_pts = parse_position(f'a square with size 10cm around the middle with {le
 for block_name, pt in zip(block_names, square_pts):
     put_first_on_second(block_name, pt)
 
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # the blocks.
-ret_val = ['small red square', 'small green square', 'small blue square', 'small orange square']
+ret_val = ['red block', 'green block', 'blue block', 'orange block']
 
 # a square with size 10cm around the middle with 4 points rotated by 45 degrees.
 polygon = make_square(size=0.1, center=denormalize_xy([0.5, 0.5]))
@@ -471,7 +473,7 @@ ret_val = points
                         <div class="row" id="content_blocks_9" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # can you throw blocks.
 say('no, I can only move objects around')                                                                                                                     
                                 </code></pre>
@@ -481,19 +483,19 @@ say('no, I can only move objects around')
                         <div class="row" id="content_blocks_10" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # move the red block 5 cm to the bottom.
 say('Ok - moving the red block 5cm to the bottom')
 target_pos = parse_position('a point 5cm below the red block')
-put_first_on_second('small red square', target_pos)
+put_first_on_second('red block', target_pos)
 
 # a point 5cm below the red block.
 block_name = parse_obj_name('the red block', f'objects = {get_obj_names()}')
 ret_val = get_obj_pos(block_name) + [0, -0.05]
 
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # the red block.
-ret_val = 'small red square'                                                                                                                                                      
+ret_val = 'red block'                                                                                                                                                      
                                 </code></pre>
                             </div>
                         </div>
@@ -501,7 +503,7 @@ ret_val = 'small red square'
                         <div class="row" id="content_blocks_11" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # do the same with the other blocks.
 say('Ok - moving the other blocks 5cm to the bottom')
 block_names = parse_obj_name('the blocks other than the red block', f'objects = {get_obj_names()}')
@@ -509,34 +511,34 @@ for block_name in block_names:
     target_pos = parse_position(f'a point 5cm below the {block_name}')
     put_first_on_second(block_name, target_pos)
 
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # the blocks other than the red block.
-ret_val = ['small green square', 'small blue square', 'small orange square']
+ret_val = ['green block', 'blue block', 'orange block']
 
 # a point 5cm below the small green square.
 square_name = parse_obj_name('the small green square', f'objects = {get_obj_names()}')
 ret_val = get_obj_pos(square_name) + [0, -0.05]
 
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # the small green square.
-ret_val = 'small green square'
+ret_val = 'green block'
 
 # a point 5cm below the small blue square.
 square_name = parse_obj_name('the small blue square', f'objects = {get_obj_names()}')
 ret_val = get_obj_pos(square_name) + [0, -0.05]
 
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # the small blue square.
-ret_val = 'small blue square'
+ret_val = 'blue block'
 
 # a point 5cm below the small orange square.
 square_name = parse_obj_name('the small orange square', f'objects = {get_obj_names()}')
 square_pos = get_obj_pos(square_name)
 ret_val = square_pos + [0, -0.05]
 
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # the small orange square.
-ret_val = 'small orange square'                                                                                                                                                                                        
+ret_val = 'orange block'                                                                                                                                                                                        
                                 </code></pre>
                             </div>
                         </div>
@@ -544,7 +546,7 @@ ret_val = 'small orange square'
                         <div class="row" id="content_blocks_12" style="display:none">
                             <div class="col-md-12">
                                 <pre><code class="language-python">
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # put the blocks on different corners clockwise starting at the top right corner.
 say('Ok - putting the blocks on different corners clockwise starting at the top right corner')
 block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
@@ -552,9 +554,9 @@ corners = parse_position('the corners clockwise starting at the top right corner
 for block_name, pos in zip(block_names, corners):
     put_first_on_second(block_name, pos)
 
-objects = ['small red square', 'small green square', 'small blue square', 'small orange square']
+objects = ['red block', 'green block', 'blue block', 'orange block']
 # the blocks.
-ret_val = ['small red square', 'small green square', 'small blue square', 'small orange square']
+ret_val = ['red block', 'green block', 'blue block', 'orange block']
 
 # the corners clockwise starting at the top right corner.
 top_right_pos = denormalize_xy([1, 1])
@@ -568,7 +570,7 @@ ret_val = [top_right_pos, bottom_right_pos, bottom_left_pos, top_left_pos]
 
                     </div>
                 </div>
-                <div class="card mb-2 mt-2 text-dark bg-light">
+                <div class="card mb-4 mt-4 text-dark bg-light">
                     <h5 class="card-header">Tabletop Manipulation: Blocks and Bowls </h5>
                     <div class="card-body">                        
                         <select class="form-select" size="5" aria-label="size 5 select example">
@@ -600,10 +602,220 @@ ret_val = [top_right_pos, bottom_right_pos, bottom_left_pos, top_left_pos]
                                 9) Show me what happens when a volcano erupts over the ocean
                             </option>
                         </select>
+
+                        <div class="col-md-12">
+                            <video id="vid_blocksbowls" width="100%" preload="auto" playsinline controls>
+                                <source src="videos/blocks_and_bowls.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_1">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# put the red block to the left of the rightmost bowl.
+rightmost_bowl_name = parse_obj_name('the rightmost bowl', f'objects = {get_obj_names()}')
+if rightmost_bowl_name:
+    say(f'Putting the red block to the left of the {rightmost_bowl_name}')
+    left_pos = parse_position(f'a point 10cm left of the {rightmost_bowl_name}')
+    put_first_on_second('red block', left_pos)
+else:
+    say('There are no bowls')
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# the rightmost bowl.
+bowl_names = ['red bowl', 'green bowl', 'blue bowl']
+bowl_positions = get_obj_positions_np(bowl_names)
+right_bowl_idx = get_right_most_idx(bowl_positions)
+right_bowl_name = bowl_names[right_bowl_idx]
+ret_val = right_bowl_name
+
+# a point 10cm left of the blue bowl.
+blue_bowl_name = parse_obj_name('blue bowl', f'objects = {get_obj_names()}')
+blue_bowl_pos = get_obj_pos(blue_bowl_name)
+left_obj_pos = blue_bowl_pos + [-0.1, 0]
+ret_val = left_obj_pos
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# blue bowl.
+ret_val = 'blue bowl'
+
+# define function: bowl_positions = get_obj_positions_np(bowl_names).
+def get_obj_positions_np(obj_names):
+    obj_positions = []
+    for obj_name in obj_names:
+        obj_positions.append(get_obj_pos(obj_name))
+    return np.array(obj_positions)
+
+# define function: right_bowl_idx = get_right_most_idx(bowl_positions).
+def get_right_most_idx(points):
+    return np.argmax(points[:, 0])                                
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_2" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# now move it to the side farthest away from it.
+say('Moving the red block to the side farthest away from it')
+farthest_side_pos = parse_position('the side farthest away from the red block')
+put_first_on_second('red block', farthest_side_pos)
+
+# the side farthest away from the red block.
+block_name = parse_obj_name('red block', f'objects = {get_obj_names()}')
+side_positions = np.array([denormalize_xy(pos) for pos in [[0.5, 0], [0.5, 1], [1, 0.5], [0, 0.5]]])
+farthest_side_pos = get_farthest_point(points=side_positions, point=get_obj_pos(block_name))
+ret_val = farthest_side_pos
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# red block.
+ret_val = 'red block'
+
+# define function: farthest_side_pos = get_farthest_point(points=side_positions, point=get_obj_pos(block_name)).
+def get_farthest_point(points, point):
+    closest_point = points[np.argmax(np.linalg.norm(points - point, axis=1))]
+    return closest_point
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_3" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# how many bowls are to the left of the red block.
+n_left_bowls = parse_question('how many bowls are to the left of the red block', f'objects = {get_obj_names()}')
+say(f'There are {n_left_bowls} bowls to the left of the red block')
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# how many bowls are to the left of the red block?
+red_block_pos = get_obj_pos('red block')
+bowl_names = parse_obj_name('the bowls', f'objects = {get_obj_names()}')
+left_bowl_names = []
+for bowl_name in bowl_names:
+    if get_obj_pos(bowl_name)[0] < red_block_pos[0]:
+    left_bowl_names.append(bowl_name)
+ret_val = len(left_bowl_names)
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# the bowls.
+ret_val = ['red bowl', 'green bowl', 'blue bowl']                                    
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_4" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# place the blocks in bowls with non matching colors.
+say('Ok - placing the blocks in bowls with non matching colors')
+matches = {'red block': 'blue bowl', 'green block': 'red bowl', 'blue block': 'green bowl'}
+for first, second in matches.items():
+    put_first_on_second(first, get_obj_pos(second))                                                                     
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_5" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# put the blocks in a vertical line 20 cm long and 10 cm below the blue bowl.
+say('Ok - putting the blocks in a vertical line 20 cm long and 10 cm below the blue bowl')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+line_pts = parse_position(f'a 20cm vertical line 10cm below the blue bowl with {len(block_names)} points')
+for block_name, pt in zip(block_names, line_pts):
+    put_first_on_second(block_name, pt)
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# the blocks.
+ret_val = ['red block', 'green block', 'blue block']
+
+# a 20cm vertical line 10cm below the blue bowl with 3 points.
+blue_bowl_name = parse_obj_name('blue bowl', f'objects = {get_obj_names()}')
+blue_bowl_pos = get_obj_pos(blue_bowl_name)
+start_pos = blue_bowl_pos + [0, -0.1]
+end_pos = blue_bowl_pos + [0, -0.1-0.2]
+line = make_line(start=start_pos, end=end_pos)
+points = interpolate_pts_on_line(line=line, n=3)
+ret_val = points
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# blue bowl.
+ret_val = 'blue bowl'    
+
+# define function: line = make_line(start=start_pos, end=end_pos).
+def make_line(start, end):
+  line = LineString([start, end])
+  return line
+
+# define function: points = interpolate_pts_on_line(line=line, n=3).
+def interpolate_pts_on_line(line, n):
+  pts = []
+  for i in range(n):
+      t = i / (n - 1)
+      pt = interpolate_line(line, t)
+      pts.append(pt)
+  return np.array(pts)
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_6" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# imagine did the bowls represent a volcano a forest and an ocean.
+say('ok')                                    
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_7" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# also imagine that the blocks are parts of the building.
+say('ok')                                                 
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_8" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# now build a tower in the forest.
+order_bottom_to_top = ['green bowl', 'blue block', 'green block', 'red block']
+say('stacking the blocks on the green bowl')
+stack_objects_in_order(object_names=order_bottom_to_top)
+
+# define function: stack_objects_in_order(object_names=order_bottom_to_top).
+def stack_objects_in_order(object_names):
+    for i in range(len(object_names) - 1):
+        put_first_on_second(object_names[i + 1], object_names[i])
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_9" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# show me what happens when a volcano erupts over the ocean.
+say('putting the red bowl on the blue bowl')
+put_first_on_second('red bowl', 'blue bowl')                                                                                                     
+                                </code></pre>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <div class="card mb-2 mt-2 text-dark bg-light">
-                    <h5 class="card-header">Tabletop Manipulation: Blocks and Bowls </h5>
+                <div class="card mb-4 mt-4 text-dark bg-light">
+                    <h5 class="card-header">Tabletop Manipulation: Fruits, Bottles, and Plates </h5>
                     <div class="card-body">                        
                         <select class="form-select" size="5" aria-label="size 5 select example">
                             <option value="fbp_1" selected>
@@ -628,10 +840,192 @@ ret_val = [top_right_pos, bottom_right_pos, bottom_left_pos, top_left_pos]
                                 7) Put the darkest object in the plate that has the apple
                             </option>
                         </select>
+
+                        <div class="col-md-12">
+                            <video id="vid_fbp" width="100%" preload="auto" playsinline controls>
+                                <source src="videos/fruits_and_bottles.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <div class="row" id="content_fbp_1">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# how many fruits are there.
+n_fruits = parse_question('how many fruits are there', f'objects = {get_obj_names()}')
+say(f'There are {n_fruits} fruits')
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# how many fruits are there?
+fruit_names = parse_obj_name('the fruits', f'objects = {get_obj_names()}')
+ret_val = len(fruit_names)
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the fruits.
+fruit_names = ['apple', 'lemon', 'avocado']
+ret_val = fruit_names
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_fbp_2" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# tell me their names.
+fruit_names = parse_question('what are the fruits', f'objects = {get_obj_names()}')
+say(f'The fruits are: {", ".join(fruit_names)}')
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# what are the fruits?
+fruit_names = parse_obj_name('the fruits', f'objects = {get_obj_names()}')
+ret_val = fruit_names
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the fruits.
+fruit_names = ['apple', 'lemon', 'avocado']
+ret_val = fruit_names
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_fbp_3" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# are there any fruit on a green plate.
+if parse_question('are there any fruit on a green plate', f'objects = {get_obj_names()}'):
+    say('Yes - there is a fruit on a green plate')
+else:
+    say('No - there is no fruit on a green plate')
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# are there any fruit on a green plate?
+fruit_names = parse_obj_name('the fruit', f'objects = {get_obj_names()}')
+green_plate_names = parse_obj_name('the green plates', f'objects = {get_obj_names()}')
+ret_val = False
+for fruit_name in fruit_names:
+    for green_plate_name in green_plate_names:
+    if bbox_contains_pt(container_name=green_plate_name, obj_name=fruit_name):
+        ret_val = True
+        break
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the fruit.
+fruit_names = ['apple', 'lemon', 'avocado']
+ret_val = fruit_names
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the green plates.
+ret_val = ['green plate']
+
+# define function: bbox_contains_pt(container_name=green_plate_name, obj_name=fruit_name).
+def bbox_contains_pt(container_name, obj_name):
+    container_bbox = get_bbox(container_name)
+    obj_pos = get_obj_pos(obj_name)
+    return container_bbox[0] <= obj_pos[0] <= container_bbox[2] and container_bbox[1] <= obj_pos[1] <= container_bbox[3]
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_fbp_4" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# move all fruits to the green plate and bottles to the blue plate.
+fruit_names = parse_obj_name('fruits', f'objects = {get_obj_names()}')
+bottle_names = parse_obj_name('bottles', f'objects = {get_obj_names()}')
+say('Moving all fruits to the green plate and bottles to the blue plate')
+for fruit_name in fruit_names:
+    put_first_on_second(fruit_name, 'green plate')
+for bottle_name in bottle_names:
+    put_first_on_second(bottle_name, 'blue plate')
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# fruits.
+fruit_names = ['apple', 'lemon', 'avocado']
+ret_val = fruit_names
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# bottles.
+ret_val = ['red bottle', 'green bottle']
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_fbp_5" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# move the smallest fruit back to the yellow plate.
+smallest_fruit_name = parse_obj_name('the smallest fruit', f'objects = {get_obj_names()}')
+say(f'Moving the {smallest_fruit_name} back to the yellow plate')
+put_first_on_second(smallest_fruit_name, 'yellow plate')
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the smallest fruit.
+fruit_names = ['apple', 'lemon', 'avocado']
+fruit_segmasks = [get_segmask(name) for name in fruit_names]
+fruit_segmask_areas = [get_segmask_area(segmask) for segmask in fruit_segmasks]
+ret_val = fruit_names[np.argmin(fruit_segmask_areas)]
+
+def get_segmask_area(object_name):
+    segmask = get_segmask(object_name)
+    area = np.sum(segmask)
+    return area
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_fbp_6" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# wait until you see an egg and put it on the green plate.
+say('Waiting until I see an egg')
+while not is_obj_visible('egg'):
+    pass
+say('I see an egg! Putting it on the green plate')
+put_first_on_second('egg', 'green plate')
+                                </code></pre>
+                            </div>
+                        </div>
+                            
+                        <div class="row" id="content_fbp_7" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# put the darkest object in the plate that has the apple.
+darkest_obj_name = parse_obj_name('the darkest object', f'objects = {get_obj_names()}')
+apple_plate_name = parse_obj_name('the plate that has the apple', f'objects = {get_obj_names()}')
+say(f'Putting the {darkest_obj_name} on the {apple_plate_name}')
+put_first_on_second(darkest_obj_name, apple_plate_name)
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the darkest object.
+obj_names = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+obj_colors = [get_color(obj_name) for obj_name in obj_names]
+obj_colors = np.array(obj_colors)
+darkest_idx = np.argmin(np.sum(obj_colors, axis=1))
+ret_val = obj_names[darkest_idx]
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the plate that has the apple.
+plate_names = ['blue plate', 'green plate', 'yellow plate']
+for plate_name in plate_names:
+if bbox_contains_pt(container_name=plate_name, obj_name='apple'):
+    ret_val = plate_name
+    break
+                                </code></pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="card mb-2 mt-2 text-dark bg-light">
-                    <h5 class="card-header">Whiteboard Drawing </h5>
+                <div class="card mb-4 mt-4 text-dark bg-light">
+                    <h5 class="card-header">Whiteboard Drawing</h5>
                     <div class="card-body">                        
                         <select class="form-select" size="5" aria-label="size 5 select example">
                             <option value="draw_1" selected>
@@ -665,9 +1059,293 @@ ret_val = [top_right_pos, bottom_right_pos, bottom_left_pos, top_left_pos]
                                 10) Draw a square around the sweeter fruit
                             </option>
                         </select>
+
+                        <div class="col-md-12">
+                            <video id="vid_draw" width="100%" preload="auto" playsinline controls>
+                                <source src="videos/whiteboard.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <div class="row" id="content_draw_1">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# draw a 5 cm hexagon around the middle.
+say('ok - drawing a 5cm hexagon around the middle')
+hexagon_shape_pts = parse_shape_pts('a hexagon with radius 5cm around the middle with 6 pts')
+draw(hexagon_shape_pts)
+
+# a hexagon with radius 5cm around the middle with 6 pts.
+center_pos = denormalize_xy([0.5, 0.5])
+hexagon_shape = make_hexagon(radius=0.05, center=center_pos)
+hexagon_shape_pts = get_points_from_polygon(hexagon_shape)
+ret_val = hexagon_shape_pts
+
+# define function: hexagon_shape = make_hexagon(radius=0.05, center=center_pos).
+def make_hexagon(radius, center):
+    hexagon_shape = Polygon([[center[0] + radius, center[1]],
+                                [center[0] + radius / 2, center[1] + radius * np.sqrt(3) / 2],
+                                [center[0] - radius / 2, center[1] + radius * np.sqrt(3) / 2],
+                                [center[0] - radius, center[1]],
+                                [center[0] - radius / 2, center[1] - radius * np.sqrt(3) / 2],
+                                [center[0] + radius / 2, center[1] - radius * np.sqrt(3) / 2]])
+    return hexagon_shape
+
+# define function: hexagon_shape_pts = get_points_from_polygon(hexagon_shape).
+def get_points_from_polygon(shape):
+    return np.array(shape.exterior.coords)
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_2" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# draw a line that bisects the hexagon.
+say('ok - drawing a line that bisects the hexagon')
+hexagon_bisect_line_pts = parse_shape_pts('a line that bisects the hexagon')
+draw(hexagon_bisect_line_pts)
+
+# a line that bisects the hexagon.
+center_pos = denormalize_xy([0.5, 0.5])
+hexagon_shape = make_hexagon(radius=0.05, center=center_pos)
+hexagon_shape_pts = get_points_from_polygon(hexagon_shape)
+line_pts = np.array([hexagon_shape_pts[0], hexagon_shape_pts[3]])
+ret_val = line_pts
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_3" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# make them both bigger.
+say('ok - making the hexagon and the line bigger by 2x')
+erase(hexagon_shape_pts)
+erase(hexagon_bisect_line_pts)
+hexagon_shape_pts = transform_shape_pts('scale it by 2x', shape_pts=hexagon_shape_pts)
+hexagon_bisect_line_pts = transform_shape_pts('scale it by 2x', shape_pts=hexagon_bisect_line_pts)
+draw(hexagon_shape_pts)
+draw(hexagon_bisect_line_pts)
+
+# scale it by 2x.
+new_shape_pts = scale_pts_around_centroid_np(shape_pts, scale_x=2, scale_y=2)
+
+# scale it by 2x.
+new_shape_pts = scale_pts_around_centroid_np(shape_pts, scale_x=2, scale_y=2)
+
+# define function: new_shape_pts = scale_pts_around_centroid_np(shape_pts, scale_x=2, scale_y=2).
+def scale_pts_around_centroid_np(traj_pts, scale_x=1.5, scale_y=1.5):
+    centroid = np.mean(traj_pts, axis=0)
+    new_traj_pts = traj_pts - centroid
+    new_traj_pts[:, 0] = new_traj_pts[:, 0] * scale_x
+    new_traj_pts[:, 1] = new_traj_pts[:, 1] * scale_y
+    new_traj_pts = new_traj_pts + centroid
+    return new_traj_pts
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_4" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# erase the hexagon and the line.
+say('ok - erasing the hexagon and the line')
+erase(hexagon_shape_pts)
+erase(hexagon_bisect_line_pts)
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_5" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# draw the sun as a circle at the top right.
+say('ok - drawing the sun as a circle at the top right')
+sun_shape_pts = parse_shape_pts('a circle with radius 5cm at the top right with 16 pts')
+draw(sun_shape_pts)
+
+# a circle with radius 5cm at the top right with 16 pts.
+top_right_corner = denormalize_xy([1, 1])
+circle_shape = make_circle(radius=0.05, center=top_right_corner)
+circle_shape_pts = interpolate_pts_along_exterior(exterior=circle_shape.exterior, n=16)
+ret_val = circle_shape_pts
+
+# define function: circle_shape = make_circle(radius=0.05, center=top_right_corner).
+def make_circle(radius, center):
+    circle = Point(center).buffer(radius)
+    return circle
+
+# define function: circle_shape_pts = interpolate_pts_along_exterior(exterior=circle_shape.exterior, n=16).
+def interpolate_pts_along_exterior(exterior, n):
+    pts_coords = []
+    for i in range(n):
+        t = i / (n - 1)
+        pt = exterior.interpolate(t, normalized=True)
+        pts_coords.append(pt.coords[0])
+    return pts_coords
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_6" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# draw a pyramid as a triangle on the ground.
+say('ok - drawing a pyramid as a triangle on the ground')
+pyramid_shape_pts = parse_shape_pts('a triangle with size 10cm on the ground')
+draw(pyramid_shape_pts)
+
+# a triangle with size 10cm on the ground.
+ground_pos = denormalize_xy([0.5, 0])
+triangle_shape = make_triangle(size=0.1, center=ground_pos)
+triangle_shape_pts = get_points_from_polygon(triangle_shape)
+ret_val = triangle_shape_pts
+
+# define function: triangle_shape_pts = get_points_from_polygon(triangle_shape).
+def get_points_from_polygon(shape):
+    return np.array(shape.exterior.coords)
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_7" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# draw a smaller pyramid a little bit to the left.
+say('ok - drawing a smaller pyramid a little bit to the left')
+smaller_pyramid_shape_pts = transform_shape_pts('move it left by 5cm and scale it by 0.5x', shape_pts=pyramid_shape_pts)
+draw(smaller_pyramid_shape_pts)
+
+# move it left by 5cm and scale it by 0.5x.
+new_shape_pts = translate_pts_np(shape_pts, delta=[-0.05, 0])
+new_shape_pts = scale_pts_around_centroid_np(new_shape_pts, scale_x=0.5, scale_y=0.5)
+
+# define function: new_shape_pts = translate_pts_np(shape_pts, delta=[-0.05, 0]).
+def translate_pts_np(pts, delta):
+  return pts + delta
+
+# define function: new_shape_pts = scale_pts_around_centroid_np(new_shape_pts, scale_x=0.5, scale_y=0.5).
+def scale_pts_around_centroid_np(traj_pts, scale_x=1.5, scale_y=1.5):
+  centroid = np.mean(traj_pts, axis=0)
+  new_traj_pts = traj_pts - centroid
+  new_traj_pts[:, 0] = new_traj_pts[:, 0] * scale_x
+  new_traj_pts[:, 1] = new_traj_pts[:, 1] * scale_y
+  new_traj_pts = new_traj_pts + centroid
+  return new_traj_pts
+                                </code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="row" id="content_draw_8" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# erase the sun the ground and the pyramid.
+say('ok - erasing the sun the ground and the pyramid')
+pts_to_erase = np.r_[sun_shape_pts, ground_line_pts, pyramid_shape_pts, smaller_pyramid_shape_pts]
+erase(pts_to_erase)
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_9" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# draw circles around the blocks.
+say('ok - drawing circles around the blocks')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+block_circle_shape_pts = []
+for block_name in block_names:
+    block_circle_shape_pts.append(parse_shape_pts(f'a circle with radius 5cm around the {block_name} with 16 pts'))
+for shape_pts in block_circle_shape_pts:
+    draw(shape_pts)
+
+objects = ['small green square', 'small orange square', 'strawberry', 'lemon']
+# the blocks.
+ret_val = ['small green square', 'small orange square']
+
+# a circle with radius 5cm around the small green square with 16 pts.
+small_green_square_name = parse_obj_name('the small green square', f'objects = {get_obj_names()}')
+small_green_square_pos = get_obj_pos(small_green_square_name)
+circle_shape = make_circle(radius=0.05, center=small_green_square_pos)
+circle_shape_pts = interpolate_pts_along_exterior(exterior=circle_shape.exterior, n=16)
+ret_val = circle_shape_pts
+
+objects = ['small green square', 'small orange square', 'strawberry', 'lemon']
+# the small green square.
+ret_val = 'small green square'
+
+# a circle with radius 5cm around the small orange square with 16 pts.
+small_orange_square_name = parse_obj_name('the small orange square', f'objects = {get_obj_names()}')
+small_orange_square_pos = get_obj_pos(small_orange_square_name)
+circle_shape = make_circle(radius=0.05, center=small_orange_square_pos)
+circle_shape_pts = interpolate_pts_along_exterior(exterior=circle_shape.exterior, n=16)
+ret_val = circle_shape_pts
+
+objects = ['small green square', 'small orange square', 'strawberry', 'lemon']
+# the small orange square.
+ret_val = 'small orange square'
+
+# define function: circle_shape = make_circle(radius=0.05, center=small_green_square_pos).
+def make_circle(radius, center):
+  circle = Point(center).buffer(radius)
+  return circle
+
+# define function: circle_shape_pts = interpolate_pts_along_exterior(exterior=circle_shape.exterior, n=16).
+def interpolate_pts_along_exterior(exterior, n):
+  pts_coords = []
+  for i in range(n):
+      t = i / (n - 1)
+      pt = exterior.interpolate(t, normalized=True)
+      pts_coords.append(pt.coords[0])
+  return pts_coords
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_10" style="display:none">
+                            <div class="col-md-12">
+                                <pre><code class="language-python">
+# draw a square around the sweeter fruit.
+say('ok - drawing a square around the sweeter fruit')
+sweeter_fruit_name = parse_obj_name('the sweeter fruit', f'objects = {get_obj_names()}')
+sweeter_fruit_square_shape_pts = parse_shape_pts(f'a 10cm square around the {sweeter_fruit_name}')
+draw(sweeter_fruit_square_shape_pts)
+
+objects = ['small green square', 'small orange square', 'strawberry', 'lemon']
+# the sweeter fruit.
+ret_val = 'strawberry'
+
+# a 10cm square around the strawberry.
+strawberry_name = parse_obj_name('the strawberry', f'objects = {get_obj_names()}')
+strawberry_pos = get_obj_pos(strawberry_name)
+square_shape = make_square(size=0.1, center=strawberry_pos)
+square_shape_pts = get_points_from_polygon(square_shape)
+ret_val = square_shape_pts
+
+objects = ['small green square', 'small orange square', 'strawberry', 'lemon']
+# the strawberry.
+ret_val = 'strawberry'
+
+# define function: square_shape = make_square(size=0.1, center=strawberry_pos).
+def make_square(size, center):
+    square = Polygon([
+        center + [-size/2, -size/2],
+        center + [size/2, -size/2], 
+        center + [size/2, size/2], 
+        center + [-size/2, size/2]
+    ])
+    return square
+
+# define function: square_shape_pts = get_points_from_polygon(square_shape).
+def get_points_from_polygon(shape):
+    return np.array(shape.exterior.coords)
+                                </code></pre>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <div class="card mb-2 mt-2 text-dark bg-light">
+                <div class="card mb-4 mt-4 text-dark bg-light">
                     <h5 class="card-header">Mobile Robot: Navigation </h5>
                     <div class="card-body">                        
                         <select class="form-select" size="5" aria-label="size 5 select example">
@@ -854,7 +1532,7 @@ for _ in range(2):
 
                     </div>
                 </div>
-                <div class="card mb-2 mt-2 text-dark bg-light">
+                <div class="card mb-4 mt-4 text-dark bg-light">
                     <h5 class="card-header">Mobile Robot: Manipulation </h5>
                     <div class="card-body">                        
                         <select class="form-select" size="3" aria-label="size 3 select example">

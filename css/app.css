@@ -160,3 +160,8 @@
   .img-responsive {
       margin: 0 auto;
   }
+
+pre code.hljs {
+  height: 300px;
+  overflow-y: scroll;
+}

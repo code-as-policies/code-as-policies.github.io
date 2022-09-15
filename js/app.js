@@ -15,6 +15,63 @@ $(document).ready(function() {
         "mobilemnp": 1
     }
 
+    function setTime(vid, time) {
+        vid.play();
+        vid.pause();
+        vid.currentTime = time;
+        vid.play();
+    }
+
+    var vid_times = {
+        "blocks": {
+            1: 0 * 60 + 3,
+            2: 1 * 60 + 34,
+            3: 2 * 60 + 18,
+            4: 2 * 60 + 51,
+            5: 3 * 60 + 4,
+            6: 4 * 60 + 52,
+            7: 6* 60 + 12,
+            8: 7 * 60 + 32,
+            9: 8 * 60 + 55,
+            10: 9 * 60 + 7,
+            11: 9 * 60 + 43,
+            12: 11 * 60 + 18
+        },
+        "blocksbowls": {
+            1: 0 * 60 + 3,
+            2: 0 * 60 + 50,
+            3: 1 * 60 + 27,
+            4: 1 * 60 + 50,
+            5: 2 * 60 + 58,
+            6: 4 * 60 + 17,
+            7: 4 * 60 + 30,
+            8: 4 * 60 + 42,
+            9: 5 * 60 + 43
+        },
+        "fbp": {
+            1: 0 * 60 + 2,
+            2: 0 * 60 + 24,
+            3: 0 * 60 + 47,
+            4: 1 * 60 + 33,
+            5: 3 * 60 + 32,
+            6: 4 * 60 + 11,
+            7: 4 * 60 + 57,
+        },
+        "draw": {
+            1: 0 * 60 + 3,
+            2: 0 * 60 + 40,
+            3: 1 * 60 + 4,
+            4: 2 * 60 + 23,
+            5: 3 * 60 + 6,
+            6: 3 * 60 + 44,
+            7: 4 * 60 + 16,
+            8: 5 * 60 + 0,
+            9: 5 * 60 + 32,
+            10: 6 * 60 + 37,
+            11: 7 * 60 + 53,
+        }
+    }
+     
     // demos
     $('select').on('change', function() {
         var sep_idx = this.value.indexOf('_');
@@ -33,6 +90,12 @@ $(document).ready(function() {
             if (domain_name.startsWith("mobile")) {
                 $('#vid_1_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
                 // $('#vid_2_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
+            } else {
+                // set vido timestamp
+                var vid = $("#vid_" + domain_name)[0];
+                var time = vid_times[domain_name][desired_cmd_idx];
+                console.log(time);
+                setTime(vid, time);
             }
 
             // show desired content
@@ -41,37 +104,6 @@ $(document).ready(function() {
 
             // set current to desired
             current_cmd_idxs[domain_name] = desired_cmd_idx;
-
-            // set vido timestamp
         }
     });
-    
-
-
-
-// var frameNumber = 0, // start video at frame 0
-//     // lower numbers = faster playback
-//     playbackConst = 500, 
-//     // get page height from video duration
-//     setHeight = document.getElementById("main"), 
-//     // select video element         
-//     vid = document.getElementById('v0'); 
-//     // var vid = $('#v0')[0]; // jquery option
-
-    
-// // Use requestAnimationFrame for smooth playback
-// function scrollPlay(){  
-//   var frameNumber  = window.pageYOffset/playbackConst;
-//   vid.currentTime  = frameNumber;
-//   window.requestAnimationFrame(scrollPlay);
-// console.log('scroll');
-// }
-    
-// // dynamically set the page height according to video length
-// vid.addEventListener('loadedmetadata', function() {
-//   setHeight.style.height = Math.floor(vid.duration) * playbackConst + "px";
-// });
-
-    
-//     window.requestAnimationFrame(scrollPlay);
 });
