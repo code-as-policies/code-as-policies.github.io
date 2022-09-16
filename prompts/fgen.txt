@@ -46,3 +46,7 @@ put_first_on_second('object1', 'object0')
 
 # example: get two corners of object bbox.
 get_bbox('object').reshape(2, 2)
+
+# example: get the position of the first object.
+obj_names = get_obj_names()
+pos_2d = get_obj_pos(obj_names[0])

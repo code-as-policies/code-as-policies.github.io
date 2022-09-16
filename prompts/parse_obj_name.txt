@@ -2,21 +2,21 @@ import numpy as np
 from env_utils import does_not_contain_others, bbox_contains_pt, get_bbox, get_segmask, get_obj_pos, get_color_rgb
 from utils import get_obj_positions_np, get_box_area, get_segmask_area
 
-objects = ['small blue square', 'small cyan square', 'purple bowl', 'gray bowl', 'brown bowl', 'small pink square', 'small purple square']
+objects = ['blue block', 'cyan block', 'purple bowl', 'gray bowl', 'brown bowl', 'pink block', 'purple block']
 # the block closest to the purple bowl.
-block_names = ['small blue square', 'small cyan square', 'small purple square']
+block_names = ['blue block', 'cyan block', 'purple block']
 block_positions = get_obj_positions_np(block_names)
 closest_block_idx = get_closest_idx(points=block_positions, point=get_obj_pos('purple bowl'))
 closest_block_name = block_names[closest_block_idx]
 ret_val = closest_block_name
-objects = ['brown bowl', 'small green square', 'small brown square', 'green bowl', 'blue bowl', 'small blue square']
+objects = ['brown bowl', 'green block', 'brown block', 'green bowl', 'blue bowl', 'blue block']
 # the left most block.
-block_names = ['small green square', 'small brown square', 'small blue square']
+block_names = ['green block', 'brown block', 'blue block']
 block_positions = get_obj_positions_np(block_names)
 left_block_idx = np.argmin(block_positions[:, 0])
 left_block_name = block_names[left_block_idx]
 ret_val = left_block_name
-objects = ['brown bowl', 'small green square', 'small brown square', 'green bowl', 'blue bowl', 'small blue square']
+objects = ['brown bowl', 'green block', 'brown block', 'green bowl', 'blue bowl', 'blue block']
 # the bowl on near the top.
 bowl_names = ['brown bowl', 'green bowl', 'blue bowl']
 bowl_positions = get_obj_positions_np(bowl_names)
@@ -31,11 +31,11 @@ fruit_segmask_areas = [get_segmask_area(segmask) for segmask in fruit_segmasks]
 ret_val = fruit_names[np.argmax(fruit_segmask_areas)]
 objects = ['brown bowl', 'banana', 'small brown square', 'apple', 'blue bowl', 'small blue square']
 # the blocks.
-ret_val = ['small brown square', 'small blue square']
-objects = ['brown bowl', 'banana', 'small brown square', 'apple', 'blue bowl', 'small blue square']
+ret_val = ['brown block', 'blue block']
+objects = ['brown bowl', 'banana', 'brown block', 'apple', 'blue bowl', 'blue block']
 # the brown objects.
-ret_val = ['brown bowl', 'small brown square']
-objects = ['brown bowl', 'banana', 'small brown square', 'apple', 'blue bowl', 'small blue square']
+ret_val = ['brown bowl', 'brown block']
+objects = ['brown bowl', 'banana', 'brown block', 'apple', 'blue bowl', 'blue block']
 # a fruit that's not the apple
 fruit_names = ['banana', 'apple']
 for fruit_name in fruit_names:
@@ -50,16 +50,24 @@ for obj_name in objects:
             break
 objects = ['small blue square', 'small cyan square', 'purple bowl', 'brown bowl', 'small purple square']
 # blocks above the brown bowl.
-block_names = ['small blue square', 'small cyan square', 'small purple square']
+block_names = ['blue block', 'cyan block', 'purple block']
 brown_bowl_pos = get_obj_pos('brown bowl')
 use_block_names = []
 for block_name in block_names:
     if get_obj_pos(block_name)[1] > brown_bowl_pos[1]:
         use_block_names.append(block_name)
 ret_val = use_block_names
-objects = ['small blue square', 'small cyan square', 'purple bowl', 'brown bowl', 'small purple square']
+objects = ['blue block', 'cyan block', 'purple bowl', 'brown bowl', 'purple block']
 # the blue block.
-ret_val = 'small blue square'
+ret_val = 'blue block'
 objects = ['lime', 'banana', 'plum', 'apple', 'mango']
 # the most sour fruit.
 ret_val = 'lime'
+objects = ['blue block', 'cyan block', 'purple bowl', 'brown bowl', 'purple block']
+# the block closest to the bottom right corner.
+corner_pos = parse_position('bottom right corner')
+block_names = ['blue block', 'cyan block', 'purple block']
+block_positions = get_obj_positions_np(block_names)
+closest_block_idx = get_closest_idx(points=block_positions, point=corner_pos)
+closest_block_name = block_names[closest_block_idx]
+ret_val = closest_block_name
