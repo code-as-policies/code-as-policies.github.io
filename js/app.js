@@ -15,13 +15,6 @@ $(document).ready(function() {
         "mobilemnp": 1
     }
 
-    function setTime(vid, time) {
-        vid.play();
-        vid.pause();
-        vid.currentTime = time;
-        vid.play();
-    }
-
     var vid_start_times = {
         "blocks": {
             1: 0 * 60 + 3,
@@ -129,72 +122,80 @@ $(document).ready(function() {
         'draw': false
     };
 
-    Object.keys(vid_should_check_pause).forEach(domain_name => {
-        const events = ["seeking", "ended"];
-        events.forEach(event => {
-            $("#vid_" + domain_name)[0].addEventListener(event, function() {
-                console.log("detected " + event + " for " + domain_name);
-                console.log("setting should check to false for " + domain_name);
+    function playSeg(vid, start_time, end_time, domain_name, desired_cmd_idx) {
+        vid.play();
+        vid.pause();
+        vid.currentTime = start_time;
+        vid.play();
+
+        vid_should_check_pause[domain_name] = true;
+        
+        console.log("start and end: " + start_time.toString() + ", " + end_time.toString());
+
+        var pausing_function = function() {
+            console.log("checking pausing function cb for " + domain_name);
+            if (vid_should_check_pause[domain_name]) {
+                console.log("should check pause is true");
+                console.log("current and end time");
+                console.log(this.currentTime);
+                console.log(end_time)
+                if (this.currentTime >= end_time) {
+                    console.log("reached end time");
+                    this.pause();
+                    this.removeEventListener("timeupdate", pausing_function);
+                    vid_should_check_pause[domain_name] = false;
+                }
+            } else {
+                console.log("not check pause, removing pausing function for " + domain_name);
+                this.removeEventListener("timeupdate", pausing_function);
                 vid_should_check_pause[domain_name] = false;
-            });
-        })
-    });
+            }
+        };
+
+        var skip_pausing_function = function() {
+            console.log("detected seeking or ended for " + domain_name);
+            console.log("setting should check to false for " + domain_name);
+            vid_should_check_pause[domain_name] = false;
+            this.removeEventListener("seeking", skip_pausing_function);
+            this.removeEventListener("ended", skip_pausing_function);
+        }
+
+        console.log("adding timeupdate pausing_function for " + domain_name + "_" + desired_cmd_idx.toString());
+        console.log("adding seeking/ended skip_pausing_function for " + domain_name + "_" + desired_cmd_idx.toString());
+                
+        vid.addEventListener("timeupdate", pausing_function);
+        vid.addEventListener("seeking", skip_pausing_function);
+        vid.addEventListener("ended", skip_pausing_function);        
+    }
 
     // demos
     $('select').on('change', function() {
         var sep_idx = this.value.indexOf('_');
         var domain_name = this.value.substring(0, sep_idx);
         var desired_cmd_idx = parseInt(this.value.substring(sep_idx + 1));
-
         var current_cmd_idx = current_cmd_idxs[domain_name];
-        if (current_cmd_idx != desired_cmd_idx) {
-            // hide current content
-            var current_content = $('#content_' + domain_name + "_" + current_cmd_idx.toString());
-            current_content.hide();
+        
+        // hide current content
+        var current_content = $('#content_' + domain_name + "_" + current_cmd_idx.toString());
+        current_content.hide();
 
-            // stop current videos
-            if (domain_name.startsWith("mobile")) {
-                $('#vid_1_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
-                // $('#vid_2_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
-            } else {
-                // set vid timestamp
-                var vid = $("#vid_" + domain_name)[0];
-                var start_time = vid_start_times[domain_name][desired_cmd_idx];
-                var end_time = vid_end_times[domain_name][desired_cmd_idx];
-                setTime(vid, start_time);
-
-                // pause video after current segment finishes 
-                vid_should_check_pause[domain_name] = true;
-                var pausing_function = function() {
-                    console.log("checking pausing function cb for " + domain_name);
-                    if (vid_should_check_pause[domain_name]) {
-                        console.log("should check pause is true");
-                        console.log("current and end time");
-                        console.log(this.currentTime);
-                        console.log(end_time)
-                        if (this.currentTime >= end_time) {
-                            console.log("reached end time");
-                            this.pause();
-                            this.removeEventListener("timeupdate", pausing_function);
-                            vid_should_check_pause[domain_name] = false;
-                        }
-                    } else {
-                        console.log("not check pause, removing pausing function for " + domain_name);
-                        this.removeEventListener("timeupdate", pausing_function);
-                        vid_should_check_pause[domain_name] = false;
-                    }
-                };
-                console.log("adding timeupdate pausing_function for " + domain_name + "_" + desired_cmd_idx.toString());
-                console.log("start and end: " + start_time.toString() + ", " + end_time.toString());
-                vid.addEventListener("timeupdate", pausing_function);
-            }
-
-            // show desired content
-            var desired_content = $('#content_' + domain_name + "_" + desired_cmd_idx.toString());
-            desired_content.show();
-
-            // set current to desired
-            current_cmd_idxs[domain_name] = desired_cmd_idx;
+        // stop current videos
+        if (domain_name.startsWith("mobile")) {
+            $('#vid_1_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
+            // $('#vid_2_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
+        } else {
+            // set vid timestamp
+            var vid = $("#vid_" + domain_name)[0];
+            var start_time = vid_start_times[domain_name][desired_cmd_idx];
+            var end_time = vid_end_times[domain_name][desired_cmd_idx];
+            playSeg(vid, start_time, end_time, domain_name, desired_cmd_idx);
         }
+
+        // show desired content
+        var desired_content = $('#content_' + domain_name + "_" + desired_cmd_idx.toString());
+        desired_content.show();
+
+        // set current to desired
+        current_cmd_idxs[domain_name] = desired_cmd_idx;
     });
 });
