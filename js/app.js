@@ -133,6 +133,8 @@ $(document).ready(function() {
         const events = ["seeking", "ended"];
         events.forEach(event => {
             $("#vid_" + domain_name)[0].addEventListener(event, function() {
+                console.log("detected " + event + " for " + domain_name);
+                console.log("setting should check to false for " + domain_name);
                 vid_should_check_pause[domain_name] = false;
             });
         })
@@ -157,21 +159,33 @@ $(document).ready(function() {
             } else {
                 // set vid timestamp
                 var vid = $("#vid_" + domain_name)[0];
-                var time = vid_start_times[domain_name][desired_cmd_idx];
-                setTime(vid, time);
+                var start_time = vid_start_times[domain_name][desired_cmd_idx];
+                var end_time = vid_end_times[domain_name][desired_cmd_idx];
+                setTime(vid, start_time);
 
                 // pause video after current segment finishes 
                 vid_should_check_pause[domain_name] = true;
                 var pausing_function = function() {
+                    console.log("checking pausing function cb for " + domain_name);
                     if (vid_should_check_pause[domain_name]) {
-                        if (this.currentTime >= vid_end_times[domain_name][desired_cmd_idx]) {
+                        console.log("should check pause is true");
+                        console.log("current and end time");
+                        console.log(this.currentTime);
+                        console.log(end_time)
+                        if (this.currentTime >= end_time) {
+                            console.log("reached end time");
                             this.pause();
                             this.removeEventListener("timeupdate", pausing_function);
+                            vid_should_check_pause[domain_name] = false;
                         }
                     } else {
+                        console.log("not check pause, removing pausing function for " + domain_name);
                         this.removeEventListener("timeupdate", pausing_function);
+                        vid_should_check_pause[domain_name] = false;
                     }
                 };
+                console.log("adding timeupdate pausing_function for " + domain_name + "_" + desired_cmd_idx.toString());
+                console.log("start and end: " + start_time.toString() + ", " + end_time.toString());
                 vid.addEventListener("timeupdate", pausing_function);
             }
 
