@@ -152,21 +152,8 @@ $(document).ready(function() {
             }
         };
 
-        var skip_pausing_function = function() {
-            console.log("detected seeking or ended for " + domain_name);
-            console.log("setting should check to false for " + domain_name);
-            vid_should_check_pause[domain_name] = false;
-            this.removeEventListener("seeking", skip_pausing_function);
-            this.removeEventListener("ended", skip_pausing_function);
-        }
-
         console.log("adding timeupdate pausing_function for " + domain_name + "_" + desired_cmd_idx.toString());
         vid.addEventListener("timeupdate", pausing_function);
-        
-        // console.log("adding seeking/ended skip_pausing_function for " + domain_name + "_" + desired_cmd_idx.toString());
-        
-        // vid.addEventListener("seeking", skip_pausing_function);
-        // vid.addEventListener("ended", skip_pausing_function);        
     }
 
     // demos
@@ -180,21 +167,22 @@ $(document).ready(function() {
         var current_content = $('#content_' + domain_name + "_" + current_cmd_idx.toString());
         current_content.hide();
 
-        // stop current videos
+        // show desired content
+        var desired_content = $('#content_' + domain_name + "_" + desired_cmd_idx.toString());
+        desired_content.show();
+
+        // switch videos
         if (domain_name.startsWith("mobile")) {
-            $('#vid_1_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
-            // $('#vid_2_' + domain_name + "_" + current_cmd_idx.toString()).get(0).pause();
+            var current_vid = $('#vid_1_' + domain_name + "_" + current_cmd_idx.toString()).get(0);
+            var desired_vid = $('#vid_1_' + domain_name + "_" + desired_cmd_idx.toString()).get(0);
+            current_vid.pause();
+            desired_vid.play();
         } else {
-            // set vid timestamp
             var vid = $("#vid_" + domain_name)[0];
             var start_time = vid_start_times[domain_name][desired_cmd_idx];
             var end_time = vid_end_times[domain_name][desired_cmd_idx];
             playSeg(vid, start_time, end_time, domain_name, desired_cmd_idx);
         }
-
-        // show desired content
-        var desired_content = $('#content_' + domain_name + "_" + desired_cmd_idx.toString());
-        desired_content.show();
 
         // set current to desired
         current_cmd_idxs[domain_name] = desired_cmd_idx;
