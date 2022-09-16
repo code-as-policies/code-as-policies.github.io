@@ -115,44 +115,28 @@ $(document).ready(function() {
         }
     }
 
-    var vid_should_check_pause = {
-        'blocks': false,
-        'blocksbowls': false,
-        'fbp': false,
-        'draw': false
-    };
-
     function playSeg(vid, start_time, end_time, domain_name, desired_cmd_idx) {
         vid.play();
         vid.pause();
         vid.currentTime = start_time;
         vid.play();
 
-        vid_should_check_pause[domain_name] = true;
-        
-        console.log("start and end: " + start_time.toString() + ", " + end_time.toString());
+        // console.log("start and end: " + start_time.toString() + ", " + end_time.toString());
 
         var pausing_function = function() {
-            console.log("checking pausing function cb for " + domain_name);
-            if (vid_should_check_pause[domain_name]) {
-                console.log("should check pause is true");
-                console.log("current and end time");
-                console.log(this.currentTime);
-                console.log(end_time)
-                if (this.currentTime >= end_time) {
-                    console.log("reached end time");
-                    this.pause();
-                    this.removeEventListener("timeupdate", pausing_function);
-                    vid_should_check_pause[domain_name] = false;
-                }
-            } else {
-                console.log("not check pause, removing pausing function for " + domain_name);
+            // console.log("checking pausing function cb for " + domain_name);
+            // console.log("current and end time");
+            // console.log(this.currentTime);
+            // console.log(end_time)
+            if (this.currentTime >= end_time) {
+                // console.log("reached end time");
+                this.pause();
                 this.removeEventListener("timeupdate", pausing_function);
                 vid_should_check_pause[domain_name] = false;
             }
         };
 
-        console.log("adding timeupdate pausing_function for " + domain_name + "_" + desired_cmd_idx.toString());
+        // console.log("adding timeupdate pausing_function for " + domain_name + "_" + desired_cmd_idx.toString());
         vid.addEventListener("timeupdate", pausing_function);
     }
 
