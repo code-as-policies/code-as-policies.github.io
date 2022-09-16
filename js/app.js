@@ -161,11 +161,12 @@ $(document).ready(function() {
         }
 
         console.log("adding timeupdate pausing_function for " + domain_name + "_" + desired_cmd_idx.toString());
-        console.log("adding seeking/ended skip_pausing_function for " + domain_name + "_" + desired_cmd_idx.toString());
-                
         vid.addEventListener("timeupdate", pausing_function);
-        vid.addEventListener("seeking", skip_pausing_function);
-        vid.addEventListener("ended", skip_pausing_function);        
+        
+        // console.log("adding seeking/ended skip_pausing_function for " + domain_name + "_" + desired_cmd_idx.toString());
+        
+        // vid.addEventListener("seeking", skip_pausing_function);
+        // vid.addEventListener("ended", skip_pausing_function);        
     }
 
     // demos
