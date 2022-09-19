@@ -186,8 +186,13 @@ for block_name, pt in zip(block_names, triangle_pts):
   put_first_on_second(block_name, pt)
 objects = ['cyan block', 'white block', 'purple bowl', 'blue block', 'blue bowl', 'white bowl']
 # make the triangle smaller.
-block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
-triangle_pts = transform_shape_pts('make it smaller by 0.5x', shape_pts=triangle_pts)
+triangle_pts = transform_shape_pts('scale it by 0.5x', shape_pts=triangle_pts)
 say('Making the triangle smaller')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
 for block_name, pt in zip(block_names, triangle_pts):
   put_first_on_second(block_name, pt)
+objects = ['brown bowl', 'red block', 'brown block', 'red bowl', 'pink bowl', 'pink block']
+# put the red block on the farthest bowl.
+farthest_bowl_name = parse_obj_name('the bowl farthest from the red block', f'objects = {get_obj_names()}')
+say(f'Putting the red block on the {farthest_bowl_name}')
+put_first_on_second('red block', farthest_bowl_name)

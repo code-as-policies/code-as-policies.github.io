@@ -10,6 +10,13 @@ end_pos = middle_pos + [0.3/2, 0]
 line = make_line(start=start_pos, end=end_pos)
 points = interpolate_pts_on_line(line=line, n=3)
 ret_val = points
+# a 20cm vertical line near the right with 4 points.
+middle_pos = denormalize_xy([1, 0.5]) 
+start_pos = middle_pos + [0, -0.2/2]
+end_pos = middle_pos + [0, 0.2/2]
+line = make_line(start=start_pos, end=end_pos)
+points = interpolate_pts_on_line(line=line, n=4)
+ret_val = points
 # a diagonal line from the top left to the bottom right corner with 5 points.
 top_left_corner = denormalize_xy([0, 1])
 bottom_right_corner = denormalize_xy([1, 0])
