@@ -1,0 +1,18 @@
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# move all fruits to the green plate and bottles to the blue plate.
+fruit_names = parse_obj_name('fruits', f'objects = {get_obj_names()}')
+bottle_names = parse_obj_name('bottles', f'objects = {get_obj_names()}')
+say('Moving all fruits to the green plate and bottles to the blue plate')
+for fruit_name in fruit_names:
+    put_first_on_second(fruit_name, 'green plate')
+for bottle_name in bottle_names:
+    put_first_on_second(bottle_name, 'blue plate')
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# fruits.
+fruit_names = ['apple', 'lemon', 'avocado']
+ret_val = fruit_names
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# bottles.
+ret_val = ['red bottle', 'green bottle']

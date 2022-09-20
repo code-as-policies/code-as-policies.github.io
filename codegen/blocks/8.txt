@@ -1,0 +1,17 @@
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# rotates the square by 45 degrees.
+say('Ok - rotating the square by 45 degrees')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+square_pts = parse_position(f'a square with size 10cm around the middle with {len(block_names)} points rotated by 45 degrees')
+for block_name, pt in zip(block_names, square_pts):
+    put_first_on_second(block_name, pt)
+
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# the blocks.
+ret_val = ['red block', 'green block', 'blue block', 'orange block']
+
+# a square with size 10cm around the middle with 4 points rotated by 45 degrees.
+polygon = make_square(size=0.1, center=denormalize_xy([0.5, 0.5]))
+polygon = rotate(polygon, 45)
+points = get_points_from_polygon(polygon)
+ret_val = points

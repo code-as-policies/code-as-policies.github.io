@@ -1,0 +1,35 @@
+# follow a 2x scaled up convex hull containing the chairs.
+traj = parse_position('a 2x scaled up convex hull containing the chairs with 20 points')
+say('ok - moving in a 2x scaled up convex hull containing the chairs')
+follow_traj(traj, speed=0.5)
+
+# define function: follow_traj(traj, speed=0.5).
+def follow_traj(traj, speed=0.5):
+    for pt in traj.coords:
+        yield pt
+
+# a 2x scaled up convex hull containing the chairs with 20 points.
+chair_names = parse_obj_name('the chairs', f'objects = {get_loc_names()}')
+chair_positions = np.array([get_loc_pos(chair_name) for chair_name in chair_names])
+shape_2d = make_convex_hull(points=chair_positions[:, :2])
+shape_2d = scale(shape_2d, xfact=2, yfact=2)
+points_2d = interpolate_pts_along_exterior(exterior=shape_2d.exterior, n=20)
+points_3d = np.c_[points_2d, np.zeros(len(points_2d))]
+ret_val = points_3d
+
+# define function: shape_2d = make_convex_hull(points=chair_positions[:, :2]).
+def make_convex_hull(points):
+    return MultiPoint(points).convex_hull
+
+# define function: points_2d = interpolate_pts_along_exterior(exterior=shape_2d.exterior, n=20).
+def interpolate_pts_along_exterior(exterior, n):
+    pts = []
+    for i in range(n):
+        t = i / (n - 1)
+        pt = np.array(exterior.interpolate(t, normalized=True).coords[0])
+        pts.append(pt)
+    return pts
+
+objects = ['table', 'countertop', 'desk', 'recycle bin', 'office chair', 'stool', 'wood chair']
+# the chairs.
+ret_val = ['office chair', 'stool', 'wood chair']

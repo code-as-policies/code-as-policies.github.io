@@ -1,0 +1,3 @@
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# also imagine that the blocks are parts of the building.
+say('ok')

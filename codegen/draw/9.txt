@@ -1,0 +1,4 @@
+# erase the sun the ground and the pyramid.
+say('ok - erasing the sun the ground and the pyramid')
+pts_to_erase = np.r_[sun_shape_pts, ground_line_pts, pyramid_shape_pts, smaller_pyramid_shape_pts]
+erase(pts_to_erase)

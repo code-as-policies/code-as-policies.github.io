@@ -1,0 +1,48 @@
+# draw circles around the blocks.
+say('ok - drawing circles around the blocks')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+block_circle_shape_pts = []
+for block_name in block_names:
+    block_circle_shape_pts.append(parse_shape_pts(f'a circle with radius 5cm around the {block_name} with 16 pts'))
+for shape_pts in block_circle_shape_pts:
+    draw(shape_pts)
+
+objects = ['green block', 'orange block', 'strawberry', 'lemon']
+# the blocks.
+ret_val = ['green block', 'orange block']
+
+# a circle with radius 5cm around the green block with 16 pts.
+green_block_name = parse_obj_name('the green block', f'objects = {get_obj_names()}')
+green_block_pos = get_obj_pos(green_block_name)
+circle_shape = make_circle(radius=0.05, center=green_block_pos)
+circle_shape_pts = interpolate_pts_along_exterior(exterior=circle_shape.exterior, n=16)
+ret_val = circle_shape_pts
+
+objects = ['green block', 'orange block', 'strawberry', 'lemon']
+# the green block.
+ret_val = 'green block'
+
+# a circle with radius 5cm around the orange block with 16 pts.
+orange_block_name = parse_obj_name('the orange block', f'objects = {get_obj_names()}')
+orange_block_pos = get_obj_pos(orange_block_name)
+circle_shape = make_circle(radius=0.05, center=orange_block_pos)
+circle_shape_pts = interpolate_pts_along_exterior(exterior=circle_shape.exterior, n=16)
+ret_val = circle_shape_pts
+
+objects = ['green block', 'orange block', 'strawberry', 'lemon']
+# the orange block.
+ret_val = 'orange block'
+
+# define function: circle_shape = make_circle(radius=0.05, center=green_block_pos).
+def make_circle(radius, center):
+  circle = Point(center).buffer(radius)
+  return circle
+
+# define function: circle_shape_pts = interpolate_pts_along_exterior(exterior=circle_shape.exterior, n=16).
+def interpolate_pts_along_exterior(exterior, n):
+  pts_coords = []
+  for i in range(n):
+      t = i / (n - 1)
+      pt = exterior.interpolate(t, normalized=True)
+      pts_coords.append(pt.coords[0])
+  return pts_coords

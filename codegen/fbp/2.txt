@@ -1,0 +1,15 @@
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# tell me their names.
+fruit_names = parse_question('what are the fruits', f'objects = {get_obj_names()}')
+say(f'The fruits are: {", ".join(fruit_names)}')
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# what are the fruits?
+fruit_names = parse_obj_name('the fruits', f'objects = {get_obj_names()}')
+ret_val = fruit_names
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the fruits.
+fruit_names = ['apple', 'lemon', 'avocado']
+ret_val = fruit_names

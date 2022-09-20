@@ -1,0 +1,20 @@
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# now move it to the side farthest away from it.
+say('Moving the red block to the side farthest away from it')
+farthest_side_pos = parse_position('the side farthest away from the red block')
+put_first_on_second('red block', farthest_side_pos)
+
+# the side farthest away from the red block.
+block_name = parse_obj_name('red block', f'objects = {get_obj_names()}')
+side_positions = np.array([denormalize_xy(pos) for pos in [[0.5, 0], [0.5, 1], [1, 0.5], [0, 0.5]]])
+farthest_side_pos = get_farthest_point(points=side_positions, point=get_obj_pos(block_name))
+ret_val = farthest_side_pos
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# red block.
+ret_val = 'red block'
+
+# define function: farthest_side_pos = get_farthest_point(points=side_positions, point=get_obj_pos(block_name)).
+def get_farthest_point(points, point):
+    closest_point = points[np.argmax(np.linalg.norm(points - point, axis=1))]
+    return closest_point

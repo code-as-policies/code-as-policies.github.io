@@ -1,0 +1,38 @@
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# put the red block to the left of the rightmost bowl.
+rightmost_bowl_name = parse_obj_name('the rightmost bowl', f'objects = {get_obj_names()}')
+if rightmost_bowl_name:
+    say(f'Putting the red block to the left of the {rightmost_bowl_name}')
+    left_pos = parse_position(f'a point 10cm left of the {rightmost_bowl_name}')
+    put_first_on_second('red block', left_pos)
+else:
+    say('There are no bowls')
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# the rightmost bowl.
+bowl_names = ['red bowl', 'green bowl', 'blue bowl']
+bowl_positions = get_obj_positions_np(bowl_names)
+right_bowl_idx = get_right_most_idx(bowl_positions)
+right_bowl_name = bowl_names[right_bowl_idx]
+ret_val = right_bowl_name
+
+# a point 10cm left of the blue bowl.
+blue_bowl_name = parse_obj_name('blue bowl', f'objects = {get_obj_names()}')
+blue_bowl_pos = get_obj_pos(blue_bowl_name)
+left_obj_pos = blue_bowl_pos + [-0.1, 0]
+ret_val = left_obj_pos
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# blue bowl.
+ret_val = 'blue bowl'
+
+# define function: bowl_positions = get_obj_positions_np(bowl_names).
+def get_obj_positions_np(obj_names):
+    obj_positions = []
+    for obj_name in obj_names:
+        obj_positions.append(get_obj_pos(obj_name))
+    return np.array(obj_positions)
+
+# define function: right_bowl_idx = get_right_most_idx(bowl_positions).
+def get_right_most_idx(points):
+    return np.argmax(points[:, 0]) 

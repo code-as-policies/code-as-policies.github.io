@@ -1,0 +1,34 @@
+# draw a square around the sweeter fruit.
+say('ok - drawing a square around the sweeter fruit')
+sweeter_fruit_name = parse_obj_name('the sweeter fruit', f'objects = {get_obj_names()}')
+sweeter_fruit_square_shape_pts = parse_shape_pts(f'a 10cm square around the {sweeter_fruit_name}')
+draw(sweeter_fruit_square_shape_pts)
+
+objects = ['green block', 'orange block', 'strawberry', 'lemon']
+# the sweeter fruit.
+ret_val = 'strawberry'
+
+# a 10cm square around the strawberry.
+strawberry_name = parse_obj_name('the strawberry', f'objects = {get_obj_names()}')
+strawberry_pos = get_obj_pos(strawberry_name)
+square_shape = make_square(size=0.1, center=strawberry_pos)
+square_shape_pts = get_points_from_polygon(square_shape)
+ret_val = square_shape_pts
+
+objects = ['green block', 'orange block', 'strawberry', 'lemon']
+# the strawberry.
+ret_val = 'strawberry'
+
+# define function: square_shape = make_square(size=0.1, center=strawberry_pos).
+def make_square(size, center):
+    square = Polygon([
+        center + [-size/2, -size/2],
+        center + [size/2, -size/2], 
+        center + [size/2, size/2], 
+        center + [-size/2, size/2]
+    ])
+    return square
+
+# define function: square_shape_pts = get_points_from_polygon(square_shape).
+def get_points_from_polygon(shape):
+    return np.array(shape.exterior.coords)

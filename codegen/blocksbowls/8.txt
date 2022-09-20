@@ -1,0 +1,10 @@
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# now build a tower in the forest.
+order_bottom_to_top = ['green bowl', 'blue block', 'green block', 'red block']
+say('stacking the blocks on the green bowl')
+stack_objects_in_order(object_names=order_bottom_to_top)
+
+# define function: stack_objects_in_order(object_names=order_bottom_to_top).
+def stack_objects_in_order(object_names):
+    for i in range(len(object_names) - 1):
+        put_first_on_second(object_names[i + 1], object_names[i])

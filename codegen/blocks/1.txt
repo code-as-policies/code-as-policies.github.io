@@ -1,0 +1,31 @@
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# put the blocks in a horizontal line near the top.
+say('Ok - putting the blocks in a horizontal line near the top')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+line_pts = parse_position(f'a horizontal line near the top with {len(block_names)} points')
+for block_name, pt in zip(block_names, line_pts):
+    put_first_on_second(block_name, pt)
+
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# the blocks.
+ret_val = ['red block', 'green block', 'blue block', 'orange block']
+
+# a horizontal line near the top with 4 points.
+top_pos = denormalize_xy([0.5, 1])
+start_pos = top_pos + [-0.3/2, 0]
+end_pos = top_pos + [0.3/2, 0]
+line = make_line(start=start_pos, end=end_pos)
+points = interpolate_pts_on_line(line=line, n=4)
+ret_val = points
+
+def make_line(start, end):
+    line = LineString([start, end])
+    return line
+
+def interpolate_pts_on_line(line, n):
+    pts = []
+    for i in range(n):
+        t = i / (n - 1)
+        pt = interpolate_line(line, t)
+        pts.append(pt)
+    return np.array(pts)

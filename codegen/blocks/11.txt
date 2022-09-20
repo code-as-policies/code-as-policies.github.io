@@ -1,0 +1,36 @@
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# do the same with the other blocks.
+say('Ok - moving the other blocks 5cm to the bottom')
+block_names = parse_obj_name('the blocks other than the red block', f'objects = {get_obj_names()}')
+for block_name in block_names:
+    target_pos = parse_position(f'a point 5cm below the {block_name}')
+    put_first_on_second(block_name, target_pos)
+
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# the blocks other than the red block.
+ret_val = ['green block', 'blue block', 'orange block']
+
+# a point 5cm below the green block.
+block_name = parse_obj_name('the green block', f'objects = {get_obj_names()}')
+ret_val = get_obj_pos(block_name) + [0, -0.05]
+
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# the green block.
+ret_val = 'green block'
+
+# a point 5cm below the blue block.
+block_name = parse_obj_name('the blue block', f'objects = {get_obj_names()}')
+ret_val = get_obj_pos(block_name) + [0, -0.05]
+
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# the blue block.
+ret_val = 'blue block'
+
+# a point 5cm below the orange block.
+block_name = parse_obj_name('the orange block', f'objects = {get_obj_names()}')
+square_pos = get_obj_pos(block_name)
+ret_val = square_pos + [0, -0.05]
+
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# the orange block.
+ret_val = 'orange block'

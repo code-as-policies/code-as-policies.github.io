@@ -1,0 +1,11 @@
+# draw a line that bisects the hexagon.
+say('ok - drawing a line that bisects the hexagon')
+hexagon_bisect_line_pts = parse_shape_pts('a line that bisects the hexagon')
+draw(hexagon_bisect_line_pts)
+
+# a line that bisects the hexagon.
+center_pos = denormalize_xy([0.5, 0.5])
+hexagon_shape = make_hexagon(radius=0.05, center=center_pos)
+hexagon_shape_pts = get_points_from_polygon(hexagon_shape)
+line_pts = np.array([hexagon_shape_pts[0], hexagon_shape_pts[3]])
+ret_val = line_pts

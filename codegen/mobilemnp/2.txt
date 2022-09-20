@@ -1,0 +1,16 @@
+# take the coca cola can from the cart and put it in the middle of the fruits on the table.
+say('sure - taking the coca cola can from the cart and putting it in the middle of the fruits on the table')
+water_bottle_loc = 'cart'
+goto_loc(water_bottle_loc); pick_obj('coca cola can')
+fruits_loc = 'table'
+goto_loc(fruits_loc); target_pos = parse_position('a point in the middle of the fruits')
+place_at_pos(target_pos)
+
+# a point in the middle of the fruits.
+fruit_names = parse_obj_name('the fruits', f'objects = {get_visible_obj_names()}')
+fruit_positions = np.array([get_obj_pos(fruit_name) for fruit_name in fruit_names])
+ret_val = np.mean(fruit_positions, axis=0)
+
+objects = ['chips bag', 'apple', 'banana']
+# the fruits.
+ret_val = ['apple', 'banana']

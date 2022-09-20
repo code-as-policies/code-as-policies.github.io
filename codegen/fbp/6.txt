@@ -1,0 +1,7 @@
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# wait until you see an egg and put it on the green plate.
+say('Waiting until I see an egg')
+while not is_obj_visible('egg'):
+    pass
+say('I see an egg! Putting it on the green plate')
+put_first_on_second('egg', 'green plate')

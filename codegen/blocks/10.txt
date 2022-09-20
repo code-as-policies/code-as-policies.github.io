@@ -1,0 +1,13 @@
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# move the red block 5 cm to the bottom.
+say('Ok - moving the red block 5cm to the bottom')
+target_pos = parse_position('a point 5cm below the red block')
+put_first_on_second('red block', target_pos)
+
+# a point 5cm below the red block.
+block_name = parse_obj_name('the red block', f'objects = {get_obj_names()}')
+ret_val = get_obj_pos(block_name) + [0, -0.05]
+
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# the red block.
+ret_val = 'red block'

@@ -1,0 +1,16 @@
+# do that again but rotated 45 degrees clockwise.
+traj = transform_traj('rotate it 45 degrees clockwise', traj_pts=traj)
+say('no problem - rotating the rectangle 45 degrees clockwise')
+for pos in traj:
+    goto_pos(pos, speed=0.5)
+
+# rotate it 45 degrees clockwise.
+new_traj_pts = rotate_3d_pts_around_centroid_np(traj_pts, angle_z=-np.deg2rad(45))
+
+# define function: new_traj_pts = rotate_3d_pts_around_centroid_np(traj_pts, angle_z=(- np.deg2rad(45))).
+def rotate_3d_pts_around_centroid_np(traj_pts, angle_z):
+    centroid = np.mean(traj_pts, axis=0)
+    traj_pts_centered = traj_pts - centroid
+    traj_pts_rotated = np.dot(traj_pts_centered, np.array([[np.cos(angle_z), -np.sin(angle_z), 0], [np.sin(angle_z), np.cos(angle_z), 0], [0, 0, 1]]))
+    traj_pts_rotated_and_centered = traj_pts_rotated + centroid
+    return traj_pts_rotated_and_centered

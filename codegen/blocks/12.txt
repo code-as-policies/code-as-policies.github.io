@@ -1,0 +1,18 @@
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# put the blocks on different corners clockwise starting at the top right corner.
+say('Ok - putting the blocks on different corners clockwise starting at the top right corner')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+corners = parse_position('the corners clockwise starting at the top right corner')
+for block_name, pos in zip(block_names, corners):
+    put_first_on_second(block_name, pos)
+
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# the blocks.
+ret_val = ['red block', 'green block', 'blue block', 'orange block']
+
+# the corners clockwise starting at the top right corner.
+top_right_pos = denormalize_xy([1, 1])
+bottom_right_pos = denormalize_xy([1, 0])
+bottom_left_pos = denormalize_xy([0, 0])
+top_left_pos = denormalize_xy([0, 1])
+ret_val = [top_right_pos, bottom_right_pos, bottom_left_pos, top_left_pos]

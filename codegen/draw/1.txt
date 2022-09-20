@@ -1,0 +1,24 @@
+# draw a 5 cm hexagon around the middle.
+say('ok - drawing a 5cm hexagon around the middle')
+hexagon_shape_pts = parse_shape_pts('a hexagon with radius 5cm around the middle with 6 pts')
+draw(hexagon_shape_pts)
+
+# a hexagon with radius 5cm around the middle with 6 pts.
+center_pos = denormalize_xy([0.5, 0.5])
+hexagon_shape = make_hexagon(radius=0.05, center=center_pos)
+hexagon_shape_pts = get_points_from_polygon(hexagon_shape)
+ret_val = hexagon_shape_pts
+
+# define function: hexagon_shape = make_hexagon(radius=0.05, center=center_pos).
+def make_hexagon(radius, center):
+    hexagon_shape = Polygon([[center[0] + radius, center[1]],
+                                [center[0] + radius / 2, center[1] + radius * np.sqrt(3) / 2],
+                                [center[0] - radius / 2, center[1] + radius * np.sqrt(3) / 2],
+                                [center[0] - radius, center[1]],
+                                [center[0] - radius / 2, center[1] - radius * np.sqrt(3) / 2],
+                                [center[0] + radius / 2, center[1] - radius * np.sqrt(3) / 2]])
+    return hexagon_shape
+
+# define function: hexagon_shape_pts = get_points_from_polygon(hexagon_shape).
+def get_points_from_polygon(shape):
+    return np.array(shape.exterior.coords)

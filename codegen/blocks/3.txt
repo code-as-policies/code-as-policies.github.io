@@ -1,0 +1,3 @@
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# why did you move the green block.
+say('I did not move the green block')  

@@ -1,0 +1,3 @@
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# imagine did the bowls represent a volcano a forest and an ocean.
+say('ok')

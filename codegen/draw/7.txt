@@ -1,0 +1,14 @@
+# draw a pyramid as a triangle on the ground.
+say('ok - drawing a pyramid as a triangle on the ground')
+pyramid_shape_pts = parse_shape_pts('a triangle with size 10cm on the ground')
+draw(pyramid_shape_pts)
+
+# a triangle with size 10cm on the ground.
+ground_pos = denormalize_xy([0.5, 0])
+triangle_shape = make_triangle(size=0.1, center=ground_pos)
+triangle_shape_pts = get_points_from_polygon(triangle_shape)
+ret_val = triangle_shape_pts
+
+# define function: triangle_shape_pts = get_points_from_polygon(triangle_shape).
+def get_points_from_polygon(shape):
+    return np.array(shape.exterior.coords)

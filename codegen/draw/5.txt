@@ -1,0 +1,24 @@
+# draw the sun as a circle at the top right.
+say('ok - drawing the sun as a circle at the top right')
+sun_shape_pts = parse_shape_pts('a circle with radius 5cm at the top right with 16 pts')
+draw(sun_shape_pts)
+
+# a circle with radius 5cm at the top right with 16 pts.
+top_right_corner = denormalize_xy([1, 1])
+circle_shape = make_circle(radius=0.05, center=top_right_corner)
+circle_shape_pts = interpolate_pts_along_exterior(exterior=circle_shape.exterior, n=16)
+ret_val = circle_shape_pts
+
+# define function: circle_shape = make_circle(radius=0.05, center=top_right_corner).
+def make_circle(radius, center):
+    circle = Point(center).buffer(radius)
+    return circle
+
+# define function: circle_shape_pts = interpolate_pts_along_exterior(exterior=circle_shape.exterior, n=16).
+def interpolate_pts_along_exterior(exterior, n):
+    pts_coords = []
+    for i in range(n):
+        t = i / (n - 1)
+        pt = exterior.interpolate(t, normalized=True)
+        pts_coords.append(pt.coords[0])
+    return pts_coords

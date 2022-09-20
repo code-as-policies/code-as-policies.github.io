@@ -1,0 +1,15 @@
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# how many fruits are there.
+n_fruits = parse_question('how many fruits are there', f'objects = {get_obj_names()}')
+say(f'There are {n_fruits} fruits')
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# how many fruits are there?
+fruit_names = parse_obj_name('the fruits', f'objects = {get_obj_names()}')
+ret_val = len(fruit_names)
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the fruits.
+fruit_names = ['apple', 'lemon', 'avocado']
+ret_val = fruit_names

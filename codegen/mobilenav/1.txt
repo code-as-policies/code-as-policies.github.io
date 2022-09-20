@@ -1,0 +1,22 @@
+# move the robot in a 2m by 1m rectangle around the office chair.
+traj = parse_position('a 2m by 1m rectangle around the office chair with 4 points')
+say('ok - moving in a 2m by 1m rectangle around the office chair')
+for pos in traj:
+    goto_pos(pos, speed=0.5)
+
+# a 2m by 1m rectangle around the office chair with 4 points.
+office_chair_name = parse_loc_name('the office chair', f'objects = {get_loc_names()}')
+office_chair_pos = get_loc_pos(office_chair_name)
+shape_2d = make_rectangle(width=2, height=1, center=office_chair_pos)
+points_2d = get_points_from_polygon(shape_2d)
+points_3d = np.c_[points_2d, np.zeros(len(points_2d))]
+ret_val = points_3d
+
+# define function: shape_2d = make_rectangle(width=2, height=1, center=office_chair_pos).
+def make_rectangle(width, height, center):
+    shape_2d = box(center[0] - width / 2, center[1] - height / 2, center[0] + width / 2, center[1] + height / 2)
+    return shape_2d
+
+objects = ['table', 'countertop', 'desk', 'recycle bin', 'office chair', 'stool', 'steel chair', 'folding chair']
+# the office chair.
+ret_val = 'office chair'

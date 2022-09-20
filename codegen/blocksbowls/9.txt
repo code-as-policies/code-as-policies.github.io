@@ -1,0 +1,4 @@
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# show me what happens when a volcano erupts over the ocean.
+say('putting the red bowl on the blue bowl')
+put_first_on_second('red bowl', 'blue bowl')

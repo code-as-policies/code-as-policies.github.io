@@ -1,0 +1,11 @@
+# draw the ground as a line at the bottom.
+say('ok - drawing the ground as a line at the bottom')
+ground_line_pts = parse_shape_pts('a horizontal line with length 20cm at the bottom')
+draw(ground_line_pts)
+
+# a horizontal line with length 20cm at the bottom.
+bottom_side = denormalize_xy([0.5, 0])
+start_pos = bottom_side + [-0.1, 0]
+end_pos = bottom_side + [0.1, 0]
+bottom_line_pts = np.array([start_pos, end_pos])
+ret_val = bottom_line_pts

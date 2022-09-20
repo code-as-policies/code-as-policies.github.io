@@ -1,0 +1,21 @@
+# draw a smaller pyramid a little bit to the left.
+say('ok - drawing a smaller pyramid a little bit to the left')
+smaller_pyramid_shape_pts = transform_shape_pts('move it left by 5cm and scale it by 0.5x', shape_pts=pyramid_shape_pts)
+draw(smaller_pyramid_shape_pts)
+
+# move it left by 5cm and scale it by 0.5x.
+new_shape_pts = translate_pts_np(shape_pts, delta=[-0.05, 0])
+new_shape_pts = scale_pts_around_centroid_np(new_shape_pts, scale_x=0.5, scale_y=0.5)
+
+# define function: new_shape_pts = translate_pts_np(shape_pts, delta=[-0.05, 0]).
+def translate_pts_np(pts, delta):
+  return pts + delta
+
+# define function: new_shape_pts = scale_pts_around_centroid_np(new_shape_pts, scale_x=0.5, scale_y=0.5).
+def scale_pts_around_centroid_np(traj_pts, scale_x=1.5, scale_y=1.5):
+  centroid = np.mean(traj_pts, axis=0)
+  new_traj_pts = traj_pts - centroid
+  new_traj_pts[:, 0] = new_traj_pts[:, 0] * scale_x
+  new_traj_pts[:, 1] = new_traj_pts[:, 1] * scale_y
+  new_traj_pts = new_traj_pts + centroid
+  return new_traj_pts

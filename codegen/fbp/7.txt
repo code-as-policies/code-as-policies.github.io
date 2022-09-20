@@ -1,0 +1,22 @@
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# put the darkest object in the plate that has the apple.
+darkest_obj_name = parse_obj_name('the darkest object', f'objects = {get_obj_names()}')
+apple_plate_name = parse_obj_name('the plate that has the apple', f'objects = {get_obj_names()}')
+say(f'Putting the {darkest_obj_name} on the {apple_plate_name}')
+put_first_on_second(darkest_obj_name, apple_plate_name)
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the darkest object.
+obj_names = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+obj_colors = [get_color(obj_name) for obj_name in obj_names]
+obj_colors = np.array(obj_colors)
+darkest_idx = np.argmin(np.sum(obj_colors, axis=1))
+ret_val = obj_names[darkest_idx]
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the plate that has the apple.
+plate_names = ['blue plate', 'green plate', 'yellow plate']
+for plate_name in plate_names:
+if bbox_contains_pt(container_name=plate_name, obj_name='apple'):
+    ret_val = plate_name
+    break

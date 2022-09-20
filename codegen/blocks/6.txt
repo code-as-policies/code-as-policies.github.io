@@ -1,0 +1,15 @@
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# make the square bigger.
+say('Ok - making the square bigger')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+square_pts = parse_position(f'a square with size 20cm around the middle with {len(block_names)} points')
+for block_name, pt in zip(block_names, square_pts):
+    put_first_on_second(block_name, pt)
+
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# the blocks.
+ret_val = ['red block', 'green block', 'blue block', 'orange block']
+
+polygon = make_square(size=0.2, center=denormalize_xy([0.5, 0.5]))
+points = get_points_from_polygon(polygon)
+ret_val = points

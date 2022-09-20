@@ -161,7 +161,7 @@
       margin: 0 auto;
   }
 
-pre code.hljs {
+pre.codegen {
   height: 300px;
   overflow-y: scroll;
 }

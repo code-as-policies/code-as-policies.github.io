@@ -1,0 +1,38 @@
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# put the blocks in a vertical line 20 cm long and 10 cm below the blue bowl.
+say('Ok - putting the blocks in a vertical line 20 cm long and 10 cm below the blue bowl')
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+line_pts = parse_position(f'a 20cm vertical line 10cm below the blue bowl with {len(block_names)} points')
+for block_name, pt in zip(block_names, line_pts):
+    put_first_on_second(block_name, pt)
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# the blocks.
+ret_val = ['red block', 'green block', 'blue block']
+
+# a 20cm vertical line 10cm below the blue bowl with 3 points.
+blue_bowl_name = parse_obj_name('blue bowl', f'objects = {get_obj_names()}')
+blue_bowl_pos = get_obj_pos(blue_bowl_name)
+start_pos = blue_bowl_pos + [0, -0.1]
+end_pos = blue_bowl_pos + [0, -0.1-0.2]
+line = make_line(start=start_pos, end=end_pos)
+points = interpolate_pts_on_line(line=line, n=3)
+ret_val = points
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# blue bowl.
+ret_val = 'blue bowl'    
+
+# define function: line = make_line(start=start_pos, end=end_pos).
+def make_line(start, end):
+  line = LineString([start, end])
+  return line
+
+# define function: points = interpolate_pts_on_line(line=line, n=3).
+def interpolate_pts_on_line(line, n):
+  pts = []
+  for i in range(n):
+      t = i / (n - 1)
+      pt = interpolate_line(line, t)
+      pts.append(pt)
+  return np.array(pts)

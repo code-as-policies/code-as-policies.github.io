@@ -1,0 +1,17 @@
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# move the smallest fruit back to the yellow plate.
+smallest_fruit_name = parse_obj_name('the smallest fruit', f'objects = {get_obj_names()}')
+say(f'Moving the {smallest_fruit_name} back to the yellow plate')
+put_first_on_second(smallest_fruit_name, 'yellow plate')
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the smallest fruit.
+fruit_names = ['apple', 'lemon', 'avocado']
+fruit_segmasks = [get_segmask(name) for name in fruit_names]
+fruit_segmask_areas = [get_segmask_area(segmask) for segmask in fruit_segmasks]
+ret_val = fruit_names[np.argmin(fruit_segmask_areas)]
+
+def get_segmask_area(object_name):
+    segmask = get_segmask(object_name)
+    area = np.sum(segmask)
+    return area

@@ -1,0 +1,3 @@
+objects = ['red block', 'green block', 'blue block', 'orange block']
+# which block did you move.
+say('I moved the blue block')    

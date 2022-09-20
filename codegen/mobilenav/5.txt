@@ -1,0 +1,5 @@
+# move back and forth between the table and the countertop twice.
+say('ok - moving back and forth between the table and the countertop twice')
+for _ in range(2):
+    goto_loc('table')
+    goto_loc('countertop')

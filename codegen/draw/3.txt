@@ -1,0 +1,23 @@
+# make them both bigger.
+say('ok - making the hexagon and the line bigger by 2x')
+erase(hexagon_shape_pts)
+erase(hexagon_bisect_line_pts)
+hexagon_shape_pts = transform_shape_pts('scale it by 2x', shape_pts=hexagon_shape_pts)
+hexagon_bisect_line_pts = transform_shape_pts('scale it by 2x', shape_pts=hexagon_bisect_line_pts)
+draw(hexagon_shape_pts)
+draw(hexagon_bisect_line_pts)
+
+# scale it by 2x.
+new_shape_pts = scale_pts_around_centroid_np(shape_pts, scale_x=2, scale_y=2)
+
+# scale it by 2x.
+new_shape_pts = scale_pts_around_centroid_np(shape_pts, scale_x=2, scale_y=2)
+
+# define function: new_shape_pts = scale_pts_around_centroid_np(shape_pts, scale_x=2, scale_y=2).
+def scale_pts_around_centroid_np(traj_pts, scale_x=1.5, scale_y=1.5):
+    centroid = np.mean(traj_pts, axis=0)
+    new_traj_pts = traj_pts - centroid
+    new_traj_pts[:, 0] = new_traj_pts[:, 0] * scale_x
+    new_traj_pts[:, 1] = new_traj_pts[:, 1] * scale_y
+    new_traj_pts = new_traj_pts + centroid
+    return new_traj_pts

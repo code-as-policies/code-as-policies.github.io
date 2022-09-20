@@ -1,0 +1,18 @@
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# how many bowls are to the left of the red block.
+n_left_bowls = parse_question('how many bowls are to the left of the red block', f'objects = {get_obj_names()}')
+say(f'There are {n_left_bowls} bowls to the left of the red block')
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# how many bowls are to the left of the red block?
+red_block_pos = get_obj_pos('red block')
+bowl_names = parse_obj_name('the bowls', f'objects = {get_obj_names()}')
+left_bowl_names = []
+for bowl_name in bowl_names:
+    if get_obj_pos(bowl_name)[0] < red_block_pos[0]:
+    left_bowl_names.append(bowl_name)
+ret_val = len(left_bowl_names)
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# the bowls.
+ret_val = ['red bowl', 'green bowl', 'blue bowl']

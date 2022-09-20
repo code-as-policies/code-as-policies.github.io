@@ -1,0 +1,28 @@
+# This is the compost bin.
+compost_bin_pos, compost_bin_angle = get_robot_pos_and_angle()
+compost_bin_name = 'compost bin'
+say('ok')
+
+# This is the recycle bin.
+recycle_bin_pos, recycle_bin_angle = get_robot_pos_and_angle()
+recycle_bin_name = 'recycle bin'
+say('ok')
+
+# This is the landfill bin.
+landfill_bin_pos, landfill_bin_angle = get_robot_pos_and_angle()
+landfill_bin_name = 'landfill bin'
+say('ok')
+
+# The coke can and the apple are on the table.
+coke_can_loc = 'table'
+apple_loc = 'table'
+say('ok')
+
+# Put way the coke can and the apple on their corresponding bins.
+say('got it - putting the coke can and the apple on their corresponding bins')
+goto_loc(coke_can_loc); pick_obj('coke can')
+goto_pos(recycle_bin_pos, angle=recycle_bin_angle)
+place_at_obj(recycle_bin_name)
+goto_loc(apple_loc); pick_obj('apple')
+goto_pos(compost_bin_pos, angle=compost_bin_angle)
+place_at_obj(compost_bin_name)

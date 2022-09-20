@@ -1,0 +1,33 @@
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# are there any fruit on a green plate.
+if parse_question('are there any fruit on a green plate', f'objects = {get_obj_names()}'):
+    say('Yes - there is a fruit on a green plate')
+else:
+    say('No - there is no fruit on a green plate')
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# are there any fruit on a green plate?
+fruit_names = parse_obj_name('the fruit', f'objects = {get_obj_names()}')
+green_plate_names = parse_obj_name('the green plates', f'objects = {get_obj_names()}')
+ret_val = False
+for fruit_name in fruit_names:
+    for green_plate_name in green_plate_names:
+    if bbox_contains_pt(container_name=green_plate_name, obj_name=fruit_name):
+        ret_val = True
+        break
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the fruit.
+fruit_names = ['apple', 'lemon', 'avocado']
+ret_val = fruit_names
+
+objects = ['apple', 'lemon', 'avocado', 'red bottle', 'green bottle', 'blue plate', 'green plate', 'yellow plate']
+# the green plates.
+ret_val = ['green plate']
+
+# define function: bbox_contains_pt(container_name=green_plate_name, obj_name=fruit_name).
+def bbox_contains_pt(container_name, obj_name):
+    container_bbox = get_bbox(container_name)
+    obj_pos = get_obj_pos(obj_name)
+    return container_bbox[0] <= obj_pos[0] <= container_bbox[2] and container_bbox[1] <= obj_pos[1] <= container_bbox[3]

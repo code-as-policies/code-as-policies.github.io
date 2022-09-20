@@ -1,0 +1,4 @@
+# erase the hexagon and the line.
+say('ok - erasing the hexagon and the line')
+erase(hexagon_shape_pts)
+erase(hexagon_bisect_line_pts)
