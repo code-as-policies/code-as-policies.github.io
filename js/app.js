@@ -153,7 +153,6 @@ $(document).ready(function() {
                 // console.log("reached end time");
                 this.pause();
                 this.removeEventListener("timeupdate", pausing_function);
-                vid_should_check_pause[domain_name] = false;
             }
         };
 
