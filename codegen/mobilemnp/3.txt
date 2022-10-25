@@ -1,8 +1,8 @@
 # how many fruits are on the table.
 say('ok - looking for fruits on the table')
 goto_loc('table')
-snack_names = parse_obj_name('the fruits', f'objects = {get_visible_obj_names()}')
-say(f'I see {len(snack_names)} fruits')
+fruit_names = parse_obj_name('the fruits', f'objects = {get_visible_obj_names()}')
+say(f'I see {len(fruit_names)} fruits')
 
 objects = ['chips bag', 'water bottle', 'coca cola can', 'apple', 'oreo cookies', 'banana']
 # the fruits.
