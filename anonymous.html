@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Code as Policies: Language Model Programs for Embodied Control</title>
+
+    <meta name="description" content="Code as Policies: Language Model Programs for Embodied Control">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <base href="/"> -->
+
+        <!--FACEBOOK-->
+    <meta property="og:image" content="https://code-as-policies.github.io/img/share_image.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="682">
+    <meta property="og:image:height" content="682">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://code-as-policies.github.io/"/>
+    <meta property="og:title" content="Code as Policies" />
+    <meta property="og:description" content="Project page for Code as Policies: Language Model Programs for Embodied Control." />
+
+        <!--TWITTER-->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Code as Policies" />
+    <meta name="twitter:description" content="Project page for Code as Policies: Language Model Programs for Embodied Control." />
+    <meta name="twitter:image" content="https://code-as-policies.github.io/img/share_image.png" />
+
+<!--     <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+  <!-- <link rel="icon" type="image/png" href="img/seal_icon.png"> -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    
+    <script src="js/app.js"></script>
+	
+    <style>
+        .nav-pills {
+          position: relative;
+          display: inline;
+        }
+        .imtip {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5JBS73F70V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5JBS73F70V');
+</script>
+<body>
+    <div class="container" id="main">
+        <div class="row mt-4">
+            <h2 class="col-md-12 text-center">
+                <b><font size="+6">Code as Policies</font></b>: </br> Language Model Programs for Embodied Control </br> 
+                <!--<small>
+                    ICRA 2023
+                </small>-->
+            </h2>
+        </div>
+        
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <video id="v0" width="100%" preload="metadata" playsinline muted loop autoplay>
+                    <source src="videos/tasks.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center">
+            <div class="col-md-10 col-lg-8">
+                <h3 class="mt-4 mb-2">
+                    Abstract
+                </h3>
+                <p class="text-justify">
+Large language models (LLMs) trained on code-completion have been shown to be capable of synthesizing simple Python programs from docstrings [1]. 
+We find that these codewriting LLMs can be re-purposed to write robot policy code, given natural language commands. 
+Specifically, policy code can express functions or feedback loops that process perception outputs (e.g.,from object detectors [2], [3]) and parameterize control primitive APIs.
+When provided as input several example language commands (formatted as comments) followed by corresponding policy code (via few-shot prompting), LLMs can take in new commands and autonomously re-compose API calls to generate new policy code respectively. 
+By chaining classic logic structures and referencing third-party libraries (e.g., NumPy, Shapely) to perform arithmetic, LLMs used in this way can write robot policies that (i) exhibit spatial-geometric reasoning, (ii) generalize to new instructions, and (iii) prescribe precise values (e.g., velocities) to ambiguous descriptions (“faster”) depending on context (i.e., behavioral commonsense). 
+This paper presents code as policies: a robot-centric formalization of language model generated programs (LMPs) that can represent reactive policies (e.g., impedance controllers), as well as waypoint-based policies (vision-based pick and place, trajectory-based control), demonstrated across multiple real robot platforms. Central to our approach is prompting hierarchical code-gen (recursively defining undefined functions), which can write more complex code and also improves state-of-the-art to solve 39.8% of problems on the HumanEval [1] benchmark. 
+                </p>
+                <p style="text-align:center;">
+                    <image src="img/share_image.png" width="100%">
+                </p>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center">
+            <div class="col-md-10 col-lg-8">
+                <!-- <h3>
+                    Approach
+                </h3> -->
+                <!-- <p class="text-justify">
+                    Imagine a robot operating in a kitchen that is capable of executing skills such as "pick up the coffee cup" or "go to the sink".
+                    To get the robot to use these skills to perform a complex task (e.g. "I spilled my drink, can you help?"), the user could manually break it up into steps consisting of these atomic commands. 
+			        However,this would be exceedingly tedious. A language model can split the high-level instruction ("I spilled my drink, can you help?") into sub-tasks, but it cannot do that effectively unless it has the context of what the robot is capable of given the abilities, current state of the robot and its environment.
+                <br><br>
+                    When querying existing large language models, we see that a language model queried with "I spilled my drink, can you help?" may respond with "You could try using a vaccuum cleaner" or "I'm sorry, I didn't mean to spill it".
+                <p style="text-align:center;">
+        	        <image src="img/gpt3-cropped2.png" class="img-responsive">
+                </p>
+                    While these responses sound reasonable, they are not feasible to execute with the robot's capabilities in its current environment.  
+                <br><br>
+                    The main principle that we use to connect LLMs to physical tasks is to observe that, in addition of asking the LLM to simply interpret an instruction, we can use it to score the likelihood that an individual skill makes progress towards completing the high-level instruction.
+                    Furthermore, if each skill has an accompanying affordance function that quantifies how likely it is to succeed from the current state (such as a learned value function), its value can be used to weight the skill's likelihood.
+                <p style="text-align:center;">
+        	        <image src="img/saycan-llm.gif" class="img-responsive">
+                </p>
+                <br><br>
+                    Once the skill is selected, we execute it on the robot, the process proceeds by iteratively selecting a task and appending it to the instruction.
+                    Practically, we structure the planning as a dialog between a user and a robot, in which a user provides the high level-instruction, e.g. "How would you bring me a coke can?" and the language model responds with an explicit sequence e.g. "I would: 1. Find a coke can, 2. Pick up the coke can, 3. Bring it to you, 4. Done".  
+                <p style="text-align:center;">
+        	        <image src="img/saycan.png" class="img-responsive">        	   
+                </p>
+                In summary, given a high-level instruction, SayCan combines probabilities from a language model (representing the probability that a skill is useful for the instruction) with the probabilities from a value function (representing the probability of successfully executing said skill) to select the skill to perform. This emits a skill that is both possible and useful. The process is repeated by appending the selected skill to robot response and querying the models again, until the output step is to terminate.                 -->
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center mt-4">
+            <div class="col-md-10 col-lg-8">
+                <h3>Experiment Videos and Generated Code</h3>
+                <p>Videos have sound that showcase voice and speech-based robot interface.</p>
+                <p>Long pauses between commands and responses are mostly caused by OpenAI API query times and rate limiting.</p>
+                <div class="card mb-4 mt-4 text-dark bg-light">
+                    <h5 class="card-header">Tabletop Manipulation: Blocks</h5>
+                    <div class="card-body">
+                        <p>Choose a command:</p>
+                        <select class="form-select" size="5" aria-label="size 5 select example">
+                            <option value="blocks_1">
+                                1) Put the blocks in a horizontal line near the top
+                            </option>
+                            <option value="blocks_2">
+                                2) Move the sky-colored block in between the red block and the second block from the left
+                            </option>
+                            <option value="blocks_3">
+                                3) Why did you move the green block?
+                            </option>
+                            <option value="blocks_4">
+                                4) Which block did you move?
+                            </option>
+                            <option value="blocks_5">
+                                5) Arrange the blocks in a square around the middle
+                            </option>
+                            <option value="blocks_6">
+                                6) Make the square bigger
+                            </option>
+                            <option value="blocks_7">
+                                7) Undo that
+                            </option>
+                            <option value="blocks_8">
+                                8) Rotate the square by 45 degrees
+                            </option>
+                            <option value="blocks_9">
+                                9) Can you throw blocks?
+                            </option>
+                            <option value="blocks_10">
+                                10) Move the red block 5cm to the bottom
+                            </option>
+                            <option value="blocks_11">
+                                11) Do the same with the other blocks
+                            </option>
+                            <option value="blocks_12">
+                                12) Put the blocks on different corners clockwise starting at the top right corner
+                            </option>
+                        </select>
+                        <div class="col-md-12 mb-2">
+                            <video id="vid_blocks" width="100%" preload="metadata" playsinline controls>
+                                <source src="videos/blocks.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <div class="row" id="content_blocks_1">
+                            <div class="col-md-12" id="code_blocks_1">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_2" style="display:none">
+                            <div class="col-md-12" id="code_blocks_2">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_3" style="display:none">
+                            <div class="col-md-12" id="code_blocks_3">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_4" style="display:none">
+                            <div class="col-md-12" id="code_blocks_4">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_5" style="display:none">
+                            <div class="col-md-12" id="code_blocks_5">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_6" style="display:none">
+                            <div class="col-md-12" id="code_blocks_6">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_7" style="display:none">
+                            <div class="col-md-12" id="code_blocks_7">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_8" style="display:none">
+                            <div class="col-md-12" id="code_blocks_8">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_9" style="display:none">
+                            <div class="col-md-12" id="code_blocks_9">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_10" style="display:none">
+                            <div class="col-md-12" id="code_blocks_10">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_11" style="display:none">
+                            <div class="col-md-12" id="code_blocks_11">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocks_12" style="display:none">
+                            <div class="col-md-12" id="code_blocks_12">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card mb-4 mt-4 text-dark bg-light">
+                    <h5 class="card-header">Tabletop Manipulation: Blocks and Bowls </h5>
+                    <div class="card-body">
+                        <p>Choose a command:</p>
+                        <select class="form-select" size="5" aria-label="size 5 select example">
+                            <option value="blocksbowls_1">
+                                1) Put the red block to the left of the rightmost bowl
+                            </option>
+                            <option value="blocksbowls_2">
+                                2) Now move it to the side farthest away from it
+                            </option>
+                            <option value="blocksbowls_3">
+                                3) How many bowls are to the left of the red block?
+                            </option>
+                            <option value="blocksbowls_4">
+                                4) Place the blocks in bowls with non matching colors
+                            </option>
+                            <option value="blocksbowls_5">
+                                5) Put the blocks in a vertical line 20 cm long and 10 cm below the blue bowl
+                            </option>
+                            <option value="blocksbowls_6">
+                                6) Imagine that the bowls represent a volcano, a forest, and an ocean
+                            </option>
+                            <option value="blocksbowls_7">
+                                7) Also imagine that the blocks are parts of a building
+                            </option>
+                            <option value="blocksbowls_8">
+                                8) Now build a tower in the forest
+                            </option>
+                            <option value="blocksbowls_9">
+                                9) Show me what happens when a volcano erupts over the ocean
+                            </option>
+                        </select>
+
+                        <div class="col-md-12 mb-2">
+                            <video id="vid_blocksbowls" width="100%" preload="metadata" playsinline controls>
+                                <source src="videos/blocks_and_bowls.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_1">
+                            <div class="col-md-12" id="code_blocksbowls_1">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_2" style="display:none">
+                            <div class="col-md-12" id="code_blocksbowls_2">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_3" style="display:none">
+                            <div class="col-md-12" id="code_blocksbowls_3">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_4" style="display:none">
+                            <div class="col-md-12" id="code_blocksbowls_4">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_5" style="display:none">
+                            <div class="col-md-12" id="code_blocksbowls_5">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_6" style="display:none">
+                            <div class="col-md-12" id="code_blocksbowls_6">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_7" style="display:none">
+                            <div class="col-md-12" id="code_blocksbowls_7">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_8" style="display:none">
+                            <div class="col-md-12" id="code_blocksbowls_8">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_blocksbowls_9" style="display:none">
+                            <div class="col-md-12" id="code_blocksbowls_9">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card mb-4 mt-4 text-dark bg-light">
+                    <h5 class="card-header">Tabletop Manipulation: Fruits, Bottles, and Plates </h5>
+                    <div class="card-body">
+                        <p>Choose a command:</p>           
+                        <select class="form-select" size="5" aria-label="size 5 select example">
+                            <option value="fbp_1">
+                                1) How many fruits are there?
+                            </option>
+                            <option value="fbp_2">
+                                2) Tell me their names
+                            </option>
+                            <option value="fbp_3">
+                                3) Are there any fruits on the green plate?
+                            </option>
+                            <option value="fbp_4">
+                                4) Move all fruits to the green plate and bottles to the blue plate
+                            </option>
+                            <option value="fbp_5">
+                                5) Move the smallest fruit back to the yellow plate
+                            </option>
+                            <option value="fbp_6">
+                                6) Wait until you see an egg and put it on the green plate
+                            </option>
+                            <option value="fbp_7">
+                                7) Put the darkest object in the plate that has the apple
+                            </option>
+                        </select>
+
+                        <div class="col-md-12 mb-2">
+                            <video id="vid_fbp" width="100%" preload="metadata" playsinline controls>
+                                <source src="videos/fruits_and_bottles.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <div class="row" id="content_fbp_1">
+                            <div class="col-md-12" id="code_fbp_1">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_fbp_2" style="display:none">
+                            <div class="col-md-12" id="code_fbp_2">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_fbp_3" style="display:none">
+                            <div class="col-md-12" id="code_fbp_3">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_fbp_4" style="display:none">
+                            <div class="col-md-12" id="code_fbp_4">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_fbp_5" style="display:none">
+                            <div class="col-md-12" id="code_fbp_5">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_fbp_6" style="display:none">
+                            <div class="col-md-12" id="code_fbp_6">
+                            </div>
+                        </div>
+                            
+                        <div class="row" id="content_fbp_7" style="display:none">
+                            <div class="col-md-12" id="code_fbp_7">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card mb-4 mt-4 text-dark bg-light">
+                    <h5 class="card-header">Whiteboard Drawing</h5>
+                    <div class="card-body">
+                        <p>Choose a command:</p>        
+                        <select class="form-select" size="5" aria-label="size 5 select example">
+                            <option value="draw_1">
+                                1) Draw a 5cm hexagon around the middle
+                            </option>
+                            <option value="draw_2">
+                                2) Draw a line that bisects the hexagon
+                            </option>
+                            <option value="draw_3">
+                                3) Make them both bigger
+                            </option>
+                            <option value="draw_4">
+                                4) Erase the hexagon and the line
+                            </option>
+                            <option value="draw_5">
+                                5) Draw the sun as a circle at the top right
+                            </option>
+                            <option value="draw_6">
+                                6) Draw the ground as a line at the bottom
+                            </option>
+                            <option value="draw_7">
+                                7) Draw a pyramid as a triangle on the ground
+                            </option>
+                            <option value="draw_8">
+                                8) Draw a smaller pyramid a little bit to the left
+                            </option>
+                            <option value="draw_9">
+                                8) Erase the sun, the ground, and the pyramid
+                            </option>
+                            <option value="draw_10">
+                                9) Draw circles around the blocks
+                            </option>
+                            <option value="draw_11">
+                                10) Draw a square around the sweeter fruit
+                            </option>
+                        </select>
+
+                        <div class="col-md-12 mb-2">
+                            <video id="vid_draw" width="100%" preload="metadata" playsinline controls>
+                                <source src="videos/whiteboard.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <div class="row" id="content_draw_1">
+                            <div class="col-md-12" id="code_draw_1">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_2" style="display:none">
+                            <div class="col-md-12" id="code_draw_2">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_3" style="display:none">
+                            <div class="col-md-12" id="code_draw_3">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_4" style="display:none">
+                            <div class="col-md-12" id="code_draw_4">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_5" style="display:none">
+                            <div class="col-md-12" id="code_draw_5">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_6" style="display:none">
+                            <div class="col-md-12" id="code_draw_6">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_7" style="display:none">
+                            <div class="col-md-12" id="code_draw_7">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_8" style="display:none">
+                            <div class="col-md-12" id="code_draw_8">
+                            </div>
+                        </div>
+                        
+                        <div class="row" id="content_draw_9" style="display:none">
+                            <div class="col-md-12" id="code_draw_9">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_10" style="display:none">
+                            <div class="col-md-12" id="code_draw_10">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_draw_11" style="display:none">
+                            <div class="col-md-12" id="code_draw_11">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card mb-4 mt-4 text-dark bg-light">
+                    <h5 class="card-header">Mobile Robot: Navigation </h5>
+                    <div class="card-body">
+                        <p>Choose a command:</p>
+                        <select class="form-select" size="5" aria-label="size 5 select example">
+                            <option value="mobilenav_1">
+                                1) Moving in a 3m by 2m rectangle around the office chair
+                            </option>
+                            <option value="mobilenav_2">
+                                2) Do that again but rotated 45 degrees clockwise
+                            </option>
+                            <option value="mobilenav_3">
+                                3) Go in a 1.5m square around the stool as many times as needed, check each step if there is a coca cola can, only stop moving when you see the coca cola can
+                            </option>
+                            <option value="mobilenav_4">
+                                4) Follow the convex hull containing the chairs
+                            </option>
+                            <option value="mobilenav_5">
+                                5) Move back and forth between the table and the countertop twice
+                            </option>
+                        </select>
+
+                        <div class="row" id="content_mobilenav_1">
+                            <div class="col-md-12 mb-2">
+                                <video id="vid_1_mobilenav_1" width="100%" preload="metadata" playsinline controls>
+                                    <source src="videos/mobilenav_0_rect_phone.mp4" type="video/mp4">
+                                </video>
+                                <!-- <video id="vid_2_mobilenav_1" width="100%" preload="metadata" playsinline controls>
+                                    <source src="videos/mobilenav_0_rect_pensive.mp4" type="video/mp4">
+                                </video> -->
+                            </div>
+                            <div class="col-md-12" id="code_mobilenav_1">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_mobilenav_2" style="display:none">
+                            <div class="col-md-12 mb-2">
+                                <video id="vid_1_mobilenav_2" width="100%" preload="metadata" playsinline controls>
+                                    <source src="videos/mobilenav_1_rect_phone.mp4" type="video/mp4">
+                                </video>
+                                <!-- <video id="vid_2_mobilenav_2" width="100%" preload="metadata" playsinline controls>
+                                    <source src="videos/mobilenav_1_rect_pensive.mp4" type="video/mp4">
+                                </video> -->
+                            </div>
+                            <div class="col-md-12" id="code_mobilenav_2">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_mobilenav_3" style="display:None">
+                            <div class="col-md-12 mb-2">
+                                <video id="vid_1_mobilenav_3" width="100%" preload="metadata" playsinline controls>
+                                    <source src="videos/mobilenav_2_coke_phone.mp4" type="video/mp4">
+                                </video>
+                                <!-- <video id="vid_2_mobilenav_3" width="100%" preload="metadata" playsinline controls>
+                                    <source src="videos/mobilenav_2_coke_pensive.mp4" type="video/mp4">
+                                </video> -->
+                            </div>
+                            <div class="col-md-12" id="code_mobilenav_3">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_mobilenav_4" style="display:None">
+                            <div class="col-md-12 mb-2">
+                                <video id="vid_1_mobilenav_4" width="100%" preload="metadata" playsinline controls>
+                                    <source src="videos/mobilenav_3_convex_hull_phone.mp4" type="video/mp4">
+                                </video>
+                                <!-- <video id="vid_2_mobilenav_4" width="100%" preload="metadata" playsinline controls>
+                                    <source src="videos/mobilenav_3_convex_hull_pensive.mp4" type="video/mp4">
+                                </video> -->
+                            </div>
+                            <div class="col-md-12" id="code_mobilenav_4">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_mobilenav_5" style="display:None">
+                            <div class="col-md-12 mb-2">
+                                <video id="vid_1_mobilenav_5" width="100%" preload="metadata" playsinline controls>
+                                    <source src="videos/mobilenav_4_back_and_forth_phone.mp4" type="video/mp4">
+                                </video>
+                                <!-- <video id="vid_2_mobilenav_5" width="100%" preload="metadata" playsinline controls>
+                                    <source src="videos/mobilenav_4_back_and_forth_pensive.mp4" type="video/mp4">
+                                </video> -->
+                            </div>
+                            <div class="col-md-12" id="code_mobilenav_5">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card mb-4 mt-4 text-dark bg-light">
+                    <h5 class="card-header">Mobile Robot: Manipulation </h5>
+                    <div class="card-body">
+                        <p>Choose a command:</p>
+                        <select class="form-select" size="3" aria-label="size 3 select example">
+                            <option value="mobilemnp_1">
+                                1) Put way the coca cola can and the apple on their corresponding bins
+                            </option>
+                            <option value="mobilemnp_2">
+                                2) Take the coca cola can from the desk and put it in the middle of the fruits on the table
+                            </option>
+                            <option value="mobilemnp_3">
+                                3) How many fruits are on the table?
+                            </option>
+                        </select>
+
+                        <div class="row" id="content_mobilemnp_1">
+                            <div class="col-md-12 mb-2">
+                                <video id="vid_1_mobilemnp_1" width="100%" preload="metadata" playsinline controls>
+                                    <source src="videos/mobilemnp_sort_trash_4x_stab_narrated.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="col-md-12" id="code_mobilemnp_1">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_mobilemnp_2" style="display:none">
+                            <div class="col-md-12">
+                                <video id="vid_1_mobilemnp_2" width="100%" preload="metadata" playsinline controls>
+                                    <source src="videos/mobilemnp_coke_between_fruit_4x_stab.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="col-md-12" id="code_mobilemnp_2">
+                            </div>
+                        </div>
+
+                        <div class="row" id="content_mobilemnp_3" style="display:none">
+                            <div class="col-md-12 mb-2">
+                                <video id="vid_1_mobilemnp_3" width="100%" preload="metadata" playsinline controls>
+                                    <source src="videos/mobilemnp_how_many_fruits_phone.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="col-md-12" id="code_mobilemnp_3">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
