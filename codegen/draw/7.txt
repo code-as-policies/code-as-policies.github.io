@@ -10,5 +10,5 @@ triangle_shape_pts = get_points_from_polygon(triangle_shape)
 ret_val = triangle_shape_pts
 
 # define function: triangle_shape_pts = get_points_from_polygon(triangle_shape).
-def get_points_from_polygon(shape):
-    return np.array(shape.exterior.coords)
+def get_points_from_polygon(triangle_shape):
+    return np.array(triangle_shape.exterior.coords)

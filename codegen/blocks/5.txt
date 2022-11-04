@@ -26,5 +26,5 @@ def make_square(size, center):
     return square
 
 # define function; points = get_points_from_polygon(polygon).
-def get_points_from_polygon(shape):
-    return np.array(shape.exterior.coords)
+def get_points_from_polygon(polygon):
+    return np.array(polygon.exterior.coords)

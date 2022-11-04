@@ -17,6 +17,10 @@ def make_rectangle(width, height, center):
     shape_2d = box(center[0] - width / 2, center[1] - height / 2, center[0] + width / 2, center[1] + height / 2)
     return shape_2d
 
+# define function; points = get_points_from_polygon(shape_2d).
+def get_points_from_polygon(shape_2d):
+    return np.array(shape_2d.exterior.coords)
+
 objects = ['table', 'countertop', 'desk', 'recycle bin', 'office chair', 'stool', 'steel chair', 'folding chair']
 # the office chair.
 ret_val = 'office chair'

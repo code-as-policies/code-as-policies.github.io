@@ -20,5 +20,5 @@ def make_hexagon(radius, center):
     return hexagon_shape
 
 # define function: hexagon_shape_pts = get_points_from_polygon(hexagon_shape).
-def get_points_from_polygon(shape):
-    return np.array(shape.exterior.coords)
+def get_points_from_polygon(hexagon_shape):
+    return np.array(hexagon_shape.exterior.coords)
